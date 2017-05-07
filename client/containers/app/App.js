@@ -9,7 +9,7 @@ export default class App extends Component {
     return (
       <div>
         <header>
-          <h1>Hapi-React-Kit</h1>
+          <h1>Appcademy Awards</h1>
           <ul className="nav">
             <li><Link to={`/get-example/`}>GET Example</Link></li>
             <li><Link to={`/post-example/`}>POST Example</Link></li>
