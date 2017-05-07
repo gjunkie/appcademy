@@ -2,10 +2,12 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var artistNomineeSchema = mongoose.Schema({
-  category: { type: ObjectId, ref: 'Category' },
-  nominee: { type: ObjectId, ref: 'Artist' },
   is_winner: { type: Boolean, default: null },
   name: String,
+  nomination: [{
+    category: { type: ObjectId, ref: 'Category' },
+    film: { type: ObjectId, ref: 'Film' },
+  }],
   slug: String,
   type: String,
   votes: [{ type: ObjectId, ref: 'User' }],
