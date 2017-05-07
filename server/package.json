@@ -1,7 +1,7 @@
 {
-  "name": "hapi-react-kit-server",
+  "name": "appcademy-server",
   "version": "0.0.1",
-  "description": "A simple starter kit for a hapijs and react app.",
+  "description": "Vote on the Academy Awards with your friends.",
   "main": "server.js",
   "scripts": {
     "start": "node ./src/server.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/gjunkie/hapi-react-kit.git"
+    "url": "git+ssh://git@github.com/gjunkie/appcademy.git"
   },
   "keywords": [
     "hapijs",
@@ -18,14 +18,18 @@
   "author": "Freddie Carthy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gjunkie/hapi-react-kit/issues"
+    "url": "https://github.com/gjunkie/appcademy/issues"
   },
-  "homepage": "https://github.com/gjunkie/hapi-react-kit#readme",
+  "homepage": "https://github.com/gjunkie/appcademy#readme",
   "dependencies": {
     "bell": "^8.5.0",
     "faker": "^4.1.0",
     "hapi": "^16.1.0",
-    "hapi-auth-cookie": "^6.1.1"
+    "hapi-auth-cookie": "^6.1.1",
+    "lodash": "^4.17.4",
+    "mongodb": "^2.2.26",
+    "mongoose": "^4.9.7",
+    "require-all": "^2.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2"

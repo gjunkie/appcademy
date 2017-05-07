@@ -1,6 +1,7 @@
 'use strict';
 
 const Hapi = require('hapi');
+const mongo = require('mongodb');
 
 // Create a server with a host and port
 const server = new Hapi.Server();
@@ -20,6 +21,7 @@ server.connection({
 server.register([
 
   { register: require('./api/') },
+  { register: require('./db/'), options: { url: process.env.MONGODB_URL || 'mongodb://localhost:27017/oscars' } },
 
 ], (err) => {
     if (err) {
