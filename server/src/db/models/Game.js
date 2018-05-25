@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var ObjectId = mongoose.Schema.Types.ObjectId;
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
-var gameSchema = mongoose.Schema({
+const gameSchema = mongoose.Schema({
   creation_date: { type: Date, required: true, default: Date.now },
   creator: { type: ObjectId, ref: 'User' },
   name: String,
@@ -11,4 +11,4 @@ var gameSchema = mongoose.Schema({
   }]
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Game', gameSchema);

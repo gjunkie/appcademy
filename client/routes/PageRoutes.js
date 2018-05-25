@@ -1,6 +1,6 @@
 import App from '../containers/app/App'
-import GetContainer from '../containers/getExample/Get'
-import PostContainer from '../containers/postExample/Post'
+import LoginContainer from '../containers/login'
+import ConnectedContainer from '../containers/exampleContainer';
 
 //import { requireAuth } from './RoutingUtils'
 
@@ -9,13 +9,18 @@ const PageRoutes = {
   component: App,
   childRoutes: [
     {
-      path: 'get-example',
-      component: GetContainer
+      path: 'login',
+      component: LoginContainer,
+      childRoutes: [
+        {
+          path: 'gmail'
+        }
+      ]
     },
     {
-      path: 'post-example',
-      component: PostContainer
-    }
+      path: 'example',
+      component: ConnectedContainer
+    },
   ]
 }
 

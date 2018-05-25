@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var ObjectId = mongoose.Schema.Types.ObjectId;
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
-var artistNomineeSchema = mongoose.Schema({
+let artistNomineeSchema = mongoose.Schema({
   is_winner: { type: Boolean, default: null },
   name: String,
   nomination: [{

@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var ObjectId = mongoose.Schema.Types.ObjectId;
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
-var artistSchema = mongoose.Schema({
+let artistSchema = mongoose.Schema({
   biography: String,
   birthday: { type: Date, default: Date.now },
   gender: Number,
