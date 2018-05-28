@@ -4,8 +4,7 @@
   "description": "Server stuff for Appcademy app.",
   "main": "server.js",
   "scripts": {
-    "start": "node ./src/server.js",
-    "build": "babel src -d lib"
+    "start": "node ./src/server.js"
   },
   "repository": {
     "type": "git",
@@ -22,10 +21,10 @@
   },
   "homepage": "https://github.com/gjunkie/appcademy#readme",
   "dependencies": {
-    "bell": "^8.5.0",
+    "bell": "^9.3.0",
     "faker": "^4.1.0",
-    "hapi": "^16.1.0",
-    "hapi-auth-cookie": "^6.1.1",
+    "hapi": "^17.1.1",
+    "hapi-auth-cookie": "^7.0.0",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.7",

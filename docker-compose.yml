@@ -1,5 +1,5 @@
 version: '3'
-services:                                                   
+services:
   proxy:
     image: traefik
     command: --web --docker --logLevel=INFO
@@ -13,22 +13,22 @@ services:
   client:
     build: ./client
     restart: always
-    ports:                                                  
+    ports:
       - "8080"
-    volumes:                                                
-      - ./client:/app            
+    volumes:
+      - ./client:/app
     labels:
       - "traefik.frontend.rule=PathPrefix:/"                           
 
   server:
-    build: ./server                                         
+    build: ./server
     restart: always
     ports:
       - "8000"
-    volumes:                                                
+    volumes:
       - ./server:/app
     labels:
-      - "traefik.frontend.rule=PathPrefix:/api"                
+      - "traefik.frontend.rule=PathPrefix:/api"
     links:
       - database 
 

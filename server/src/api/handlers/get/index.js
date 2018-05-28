@@ -1,14 +1,9 @@
-var faker = require('faker');
+// Create all of your GET handlers in this folder, then import
+// and export them here.
+const user = require('./user');
+const users = require('./users');
 
-exports.exampleGET = { 
-  handler: function handler(request, done) {
-    //let User = request.server.plugins.db.User;
-    var sampleUser = {
-        id: faker.random.number(),
-        name: faker.name.findName(),
-        title: faker.name.jobTitle()
-      };
-
-    return done(null, sampleUser);
-  }
+module.exports = {
+  user,
+  users,
 };

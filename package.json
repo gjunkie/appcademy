@@ -4,30 +4,21 @@
   "description": "Vote with your friends.",
   "main": "server.js",
   "scripts": {
-    "compile": "webpack",
-    "compile:json": "webpack --profile --json",
-    "start": "node --max_old_space_size=8192 ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "./node_modules/mocha/bin/mocha $(find . -name '*.test.js' ! -ipath '*node_modules*')"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/gjunkie/hapi-react-kit.git"
+    "url": "git+ssh://git@github.com/gjunkie/appcademy.git"
   },
-  "keywords": [
-    "hapijs",
-    "react"
-  ],
+  "keywords": [],
   "author": "Freddie Carthy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gjunkie/hapi-react-kit/issues"
+    "url": "https://github.com/gjunkie/appcademy/issues"
   },
-  "homepage": "https://github.com/gjunkie/hapi-react-kit#readme",
+  "homepage": "https://github.com/gjunkie/appcademy#readme",
   "dependencies": {},
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.2",
-    "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
     "es6-promise": "^4.2.4",
     "eslint": "^4.18.1",
