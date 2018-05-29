@@ -4,6 +4,7 @@ const postHandlers = require('./post');
 
 module.exports = {
   get: {
+    login: getHandlers.login,
     user: getHandlers.user,
     users: getHandlers.users,
   },

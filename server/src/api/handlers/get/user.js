@@ -2,7 +2,7 @@ var Hapi = require('hapi');
 var faker = require('faker');
 
 // Get a user
-module.exports = (request, h) => {
+module.exports = async (request, h) => {
   console.log("You hit the GET endpoint! You sent this:");
   console.log(request.payload);
   let User = request.server.plugins.db.User;

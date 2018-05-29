@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "webpack -p  && webpack-dev-server",
     "compile:json": "webpack --profile --json",
-    "start": "node --max_old_space_size=8192 ./node_modules/.bin/webpack-dev-server --mode development --config config/webpack.base.config.js --hot --history-api-fallback --host 0.0.0.0 --port 8080"
+    "start": "node --max_old_space_size=8192 ./node_modules/.bin/webpack-dev-server --mode development --config config/webpack.base.config.js --hot --history-api-fallback --host appcademy.dev --port 8080"
   },
   "repository": {
     "type": "git",

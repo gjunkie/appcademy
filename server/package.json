@@ -23,8 +23,8 @@
   "dependencies": {
     "bell": "^9.3.0",
     "faker": "^4.1.0",
-    "hapi": "^17.1.1",
-    "hapi-auth-cookie": "^7.0.0",
+    "hapi": "^17.5.0",
+    "hapi-auth-cookie": "^9.0.0",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.7",

@@ -14,6 +14,7 @@ const server = new Hapi.Server({
 async function setupAndStart() {
   await server.register([
     { plugin: require('bell') },
+    { plugin: require('hapi-auth-cookie') },
     { plugin: require('./api/') },
     {
       plugin: require('./db'),
@@ -23,39 +24,66 @@ async function setupAndStart() {
     }
   ]);
 
-  //server.auth.strategy('google', 'bell', {
-    //provider: 'google',
-    //password: 'password',
-    //isSecure: false,
-    //clientId: "222",
-    ////clientId: process.env.googleClientId,
-    //clientSecret: "111",
-    ////clientSecret: process.env.googleClientSecret,
-    //providerParams: {
-      //redirect_uri: server.info.uri + '/login'
-    //}
-  //});
+  server.auth.strategy('google', 'bell', {
+    provider: 'google',
+    password: 'password-should-be-32-characters',
+    isSecure: false,
+    //clientId: process.env.googleClientId,
+    //clientSecret: process.env.googleClientSecret,
+    providerParams: {
+      redirect_uri: server.info.uri + '/api/login'
+    }
+  });
 
-  //server.route({
-    //method: '*',
-    //path: '/login/gmail',
-    //config: {
-      //auth: 'google',
-      //plugins: {
-        //'hapi-auth-cookie': {
-          //redirectTo: false
-        //}
-      //},
-      //handler: function (request, reply) {
-        //console.log('hit login route');
-        //request.auth.credentials.timestamp = new Date();
-        //request.auth.session.set(request.auth.credentials);
-        //request.server.plugins.api.get(request, '/api/user/login', function(response){
-          //return reply.redirect('/');
-        //});
-      //}
-    //}
-  //});
+  server.auth.strategy('session', 'cookie', {
+    password: 'password-should-be-32-characters',
+    cookie: 'sid-example',
+    redirectTo: '/login',
+    isSecure: false,
+    validateFunc: async (request, session) => {
+      const cached = await cache.get(session.sid);
+      const out = {
+          valid: !!cached
+      };
+
+      if (out.valid) {
+          out.credentials = cached.account;
+      }
+
+      return out;
+    }
+  });
+
+  server.route({
+    method: ['GET', 'POST'],
+    path: '/api/login',
+    config: {
+      auth: 'google',
+      plugins: {
+        'hapi-auth-cookie': {
+          redirectTo: false
+        }
+      },
+      handler: async (request, h) => {
+        const promise = new Promise((resolve, reject) => {
+          if (!request.auth.isAuthenticated) {
+            reject(request.auth.error.message);
+            return `Authentication failed due to: ${request.auth.error.message}`;
+          }
+          //request.auth.credentials.timestamp = new Date();
+          //request.auth.session.set(request.auth.credentials);
+          request.server.plugins.api.get(request, '/api/user/login', (response) => {
+            console.log('the respnose')
+            console.log(response)
+            // everything but this redirect seems to be working.
+            h.redirect('/');
+            resolve(response);
+          });
+        });
+        return promise;
+      }
+    }
+  });
 
   await server.start().then(() => {
     console.log('API server started!');

@@ -12,6 +12,7 @@ export default class App extends Component {
           <h1>Appcademy</h1>
           <ul className="nav">
             <li><Link to={`/example/`}>Example Route</Link></li>
+            <li><Link to={`/api/login`} target="_self">Login</Link></li>
           </ul>
           <h3>You're up and running!</h3>
         </header>

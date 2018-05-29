@@ -3,24 +3,29 @@
 const requestHandlers = require('./handlers');
 
 exports.plugin = {
-  register: (server, options) => {
+  register: async (server, options) => {
     server.route([
+      { method: 'GET', path: '/api/user/login', options: { handler: requestHandlers.get.login } },
       { method: 'GET', path: '/api/getuser', options: { handler: requestHandlers.get.user } },
       { method: 'GET', path: '/api/getusers', options: { handler: requestHandlers.get.users } },
+
       { method: 'POST', path: '/api/createuser', options: { handler: requestHandlers.post.user } },
+
       { method: 'DELETE', path: '/api/deleteuser/{id}', options: { handler: requestHandlers.delete.user } },
     ])
 
-    //server.expose('get', (request, url, callback) => {
-      //server.inject({
-        //method: 'GET',
-        //url: url,
-        //headers: {
-          //cookie: (request.headers) ? request.headers.cookie : false
-        //},
-        //credentials: request.auth.credentials || null
-      //}, callback);
-    //});
+    server.expose('get', async (request, url, callback) => {
+      const injection = await server.inject({
+        method: 'GET',
+        url: url,
+        headers: {
+          cookie: (request.headers) ? request.headers.cookie : false
+        },
+        credentials: request.auth.credentials || null
+      });
+      const response = await injection;
+      callback(response.result)
+    });
 
     //server.expose('post', (request, url, data, callback) => {
       //server.inject({

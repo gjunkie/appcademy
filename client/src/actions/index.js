@@ -16,6 +16,4 @@ const actions = {
   saveUser,
 }
 
-console.log(actions)
-
 export default actions;
