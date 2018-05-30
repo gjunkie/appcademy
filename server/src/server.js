@@ -1,5 +1,6 @@
 const Hapi = require('hapi');
 const mongo = require('mongodb');
+const uuidv4 = require('uuid/v4');
 
 const server = new Hapi.Server({
   port: 8000,
@@ -35,10 +36,13 @@ async function setupAndStart() {
     }
   });
 
+  const cache = server.cache({ segment: 'sessions', expiresIn: 3 * 24 * 60 * 60 * 1000 });
+  server.app.cache = cache;
+
   server.auth.strategy('session', 'cookie', {
     password: 'password-should-be-32-characters',
-    cookie: 'sid-example',
-    redirectTo: '/login',
+    cookie: 'appcademy',
+    redirectTo: '/api/login',
     isSecure: false,
     validateFunc: async (request, session) => {
       const cached = await cache.get(session.sid);
@@ -65,22 +69,21 @@ async function setupAndStart() {
         }
       },
       handler: async (request, h) => {
-        const promise = new Promise((resolve, reject) => {
-          if (!request.auth.isAuthenticated) {
-            reject(request.auth.error.message);
-            return `Authentication failed due to: ${request.auth.error.message}`;
-          }
-          //request.auth.credentials.timestamp = new Date();
-          //request.auth.session.set(request.auth.credentials);
-          request.server.plugins.api.get(request, '/api/user/login', (response) => {
-            console.log('the respnose')
-            console.log(response)
-            // everything but this redirect seems to be working.
-            h.redirect('/');
-            resolve(response);
-          });
-        });
-        return promise;
+        if (!request.auth.isAuthenticated) {
+          reject(request.auth.error.message);
+          return `Authentication failed due to: ${request.auth.error.message}`;
+        }
+        const loginPromise = await request.server.plugins.api.get(request, '/api/user/login');
+        const account = await loginPromise;
+        const sid = uuidv4();
+
+        console.log(request.server.app)
+        await request.server.app.cache.set(sid, { account }, 0);
+        request.cookieAuth.set({ sid });
+
+        //request.auth.credentials.timestamp = new Date();
+        //request.auth.session.set(request.auth.credentials);
+        return h.redirect('/');
       }
     }
   });

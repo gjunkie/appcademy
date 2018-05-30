@@ -5,7 +5,7 @@ const createUser = data => {
 };
 
 // Login handler
-module.exports = (request, h, callback) => {
+module.exports = (request, h) => {
   const promise = new Promise((resolve, reject) => {
     const User = request.server.plugins.db.User;
     User.findOne({ id: request.auth.credentials.profile.raw.id })
@@ -16,8 +16,6 @@ module.exports = (request, h, callback) => {
         if (!user) {
           const newUser = createUser(request.auth.credentials.profile);
           console.log('no user')
-          console.log(newUser);
-          //return newUser;
           resolve(newUser);
           return newUser;
           //const userData = {
@@ -32,11 +30,10 @@ module.exports = (request, h, callback) => {
             //}
             //done(null, newUser);
             //});
-        } else {
-          // TODO: should prob update the user if they exist
-          console.log('we have user')
-          resolve('user');
         }
+        // TODO: should prob update the user if they exist
+        console.log('we have user')
+        resolve('user');
       });
   });
   return promise;

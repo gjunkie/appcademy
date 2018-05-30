@@ -5,6 +5,7 @@ const models = require('require-all')(__dirname + '/models');
 exports.plugin = {
   register: async (plugin, options) => {
 
+    mongoose.Promise = global.Promise;
     mongoose.connect(options.url);
 
     const db = mongoose.connection;

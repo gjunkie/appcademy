@@ -15,7 +15,7 @@ exports.plugin = {
     ])
 
     server.expose('get', async (request, url, callback) => {
-      const injection = await server.inject({
+      await server.inject({
         method: 'GET',
         url: url,
         headers: {
@@ -23,8 +23,6 @@ exports.plugin = {
         },
         credentials: request.auth.credentials || null
       });
-      const response = await injection;
-      callback(response.result)
     });
 
     //server.expose('post', (request, url, data, callback) => {
