@@ -1,13 +1,18 @@
 import React from 'react'
 //import { getSession } from '../actions/UserActions'
-import { render } from 'react-dom'
-import { Router, browserHistory } from 'react-router'
+import { Router } from 'react-router'
+import { BrowserRouter } from 'react-router-dom'
+import { createBrowserHistory } from 'history';
+
+import App from '../containers/app/App';
 
 import PageRoutes from './PageRoutes'
 
-export const AppRouter = () => (<Router
-  history={browserHistory}
-  routes={PageRoutes} />)
+export const AppRouter = () => (
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
 
 class Routes {
   constructor() {
@@ -18,7 +23,7 @@ class Routes {
   }
 
   run(content) {
-    return render(AppRouter, content)
+    return AppRouter;
     //return getSession()
       //.then(() => {
         //return render(AppRouter, content)

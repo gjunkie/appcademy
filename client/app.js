@@ -1,36 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom'
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { AppContainer } from 'react-hot-loader';
+import BaseApp from './containers/app/App';
 
-import userReducer from './reducers/userReducers';
-import Routes from './routes/Routes';
+import reducers from './reducers';
+
+const middleware = applyMiddleware(thunk);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(
-  userReducer,
-  compose(
-    applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  )
+  reducers,
+  composeEnhancers(middleware)
+);
+
+const App = () => (
+  <BrowserRouter>
+    <BaseApp />
+  </BrowserRouter>
 )
 
-const render = (Component) => {
+const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <AppContainer>
-        <Component />
-      </AppContainer>
+      <App />,
      </Provider>,
     document.getElementById('root')
   );
 };
 
-render(Routes);
+render();
 
 if (module.hot) {
   module.hot.accept('./routes/Routes', () => {
-    render(Routes)
+    render()
   });
 }

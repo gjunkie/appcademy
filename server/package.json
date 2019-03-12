@@ -1,7 +1,7 @@
 {
-  "name": "appcademy-server",
+  "name": "hapi-react-kit-server",
   "version": "0.0.1",
-  "description": "Vote on the Academy Awards with your friends.",
+  "description": "A hapijs server for hapi-react-kit.",
   "main": "server.js",
   "scripts": {
     "start": "node ./src/server.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/gjunkie/appcademy.git"
+    "url": "git+ssh://git@github.com/gjunkie/hapi-react-kit.git"
   },
   "keywords": [
     "hapijs",
@@ -18,20 +18,22 @@
   "author": "Freddie Carthy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gjunkie/appcademy/issues"
+    "url": "https://github.com/gjunkie/hapi-react-kit/issues"
   },
-  "homepage": "https://github.com/gjunkie/appcademy#readme",
+  "homepage": "https://github.com/gjunkie/hapi-react-kit#readme",
   "dependencies": {
-    "bell": "^8.5.0",
+    "bell": "^9.5.0",
     "faker": "^4.1.0",
-    "hapi": "^16.1.0",
-    "hapi-auth-cookie": "^6.1.1",
-    "lodash": "^4.17.4",
-    "mongodb": "^2.2.26",
-    "mongoose": "^4.9.7",
-    "require-all": "^2.2.0"
+    "good-mongodb": "^0.4.0",
+    "hapi": "^18.1.0",
+    "hapi-auth-cookie": "^9.1.0",
+    "lodash-node": "^3.10.2",
+    "mongodb": "^3.1.13",
+    "mongoose": "^5.4.17",
+    "require-all": "^3.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.22.2"
+    "babel-cli": "^6.22.2",
+    "webpack": "^4.29.6"
   }
 }
