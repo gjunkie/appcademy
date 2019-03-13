@@ -1,4 +1,4 @@
-var Hapi = require('hapi');
+import Hapi from 'hapi';
 
 // Delete user
 module.exports = (request, h) => {

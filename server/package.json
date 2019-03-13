@@ -1,10 +1,10 @@
 {
-  "name": "hapi-react-kit-server",
+  "name": "appcademy-awards-server",
   "version": "0.0.1",
-  "description": "A hapijs server for hapi-react-kit.",
+  "description": "API server for Appcademy Awards.",
   "main": "server.js",
   "scripts": {
-    "start": "node ./src/server.js",
+    "start": "node bootstrap.js",
     "build": "babel src -d lib"
   },
   "repository": {
@@ -32,7 +32,11 @@
     "require-all": "^3.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.22.2",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/register": "^7.0.0",
     "webpack": "^4.29.6"
   }
 }

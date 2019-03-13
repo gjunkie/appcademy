@@ -1,6 +1,6 @@
-const deleteHandlers = require('./delete');
-const getHandlers = require('./get');
-const postHandlers = require('./post');
+import deleteHandlers from './delete';
+import getHandlers from './get';
+import postHandlers from './post';
 
 module.exports = {
   get: {

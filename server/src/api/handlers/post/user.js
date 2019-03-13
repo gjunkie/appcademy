@@ -1,5 +1,5 @@
-var Hapi = require('hapi');
-// var faker = require('faker');
+import Hapi from 'hapi';
+// import faker from 'faker';
 
 /*
  * Creates a user with the payload sent in the request.

@@ -1,10 +1,6 @@
-var assert = require('assert');
-var expect = require('chai').expect;
-var nock = require('nock');
-
-var polyfill = require('es6-promise').polyfill;
-Object.assign = require('object-assign');
-polyfill()
+import assert from 'assert';
+import { expect } from 'chai';
+import nock from 'nock';
 
 //var API = require('../client/api');
 //var sampleGet = API.sampleGet;

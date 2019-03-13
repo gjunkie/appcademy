@@ -1,5 +1,5 @@
-var Hapi = require('hapi');
-const example = require('./example');
+import Hapi from 'hapi';
+import example from './example';
 
 module.exports = {
   www: {

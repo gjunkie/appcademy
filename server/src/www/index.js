@@ -1,8 +1,8 @@
 // list your api endpoints with their handlers here.
 // look at ./handlers/get and ./handlers/post to see sample handlers.
-const requestHandlers = require('./handlers')
+import requestHandlers from './handlers';
 
-exports.plugin = {
+const plugin = {
   register: (server, options) => {
     server.route([
       { method: 'GET', path: '/example', handler: (request, h) => {
@@ -15,3 +15,4 @@ exports.plugin = {
   name: 'www',
 };
 
+export default plugin;

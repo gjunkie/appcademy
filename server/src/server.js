@@ -1,5 +1,8 @@
-const Hapi = require('hapi');
-const mongo = require('mongodb');
+import Hapi from 'hapi';
+import mongo from 'mongodb';
+import api from './api';
+import www from './www';
+import db from '../db';
 
 const server = new Hapi.Server({
   port: 8000,
@@ -13,10 +16,10 @@ const server = new Hapi.Server({
 
 async function setupAndStart() {
   await server.register([
-    { plugin: require('./api/') },
-    { plugin: require('./www/') },
+    { plugin: api },
+    { plugin: www },
     {
-      plugin: require('../db'),
+      plugin: db,
       options: {
           url: process.env.MONGODB_URL || 'mongodb://database:27017/appcademydb',
       }

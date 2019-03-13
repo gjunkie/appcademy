@@ -1,4 +1,4 @@
-var Hapi = require('hapi');
+import Hapi from 'hapi';
 
 // Get users
 module.exports = (request, h) => {
