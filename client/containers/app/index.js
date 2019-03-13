@@ -4,6 +4,7 @@ import ExampleContainer from '../exampleContainer';
 import Vote from '../Vote';
 import Profile from '../Profile';
 import Login from '../Login';
+import SignUp from '../SignUp';
 import Navigation from '../../components/Navigation';
 
 import './styles.css';
@@ -21,6 +22,7 @@ const BaseApp = () => {
         <Route path="/vote" component={Vote} />
         <Route path="/profile" component={Profile} />
         <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
       </Switch>
     </div>
   );
