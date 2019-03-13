@@ -18,9 +18,9 @@ const BaseApp = () => {
 
       <Switch>
         <Route path="/example" exact component={ExampleContainer} />
-        <Route path="/vote" exact component={Vote} />
-        <Route path="/profile" exact component={Profile} />
-        <Route path="/login" exact component={Login} />
+        <Route path="/vote" component={Vote} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/login" component={Login} />
       </Switch>
     </div>
   );
