@@ -47,7 +47,9 @@ module.exports = (request, h) => {
   return new Promise((resolve, reject) => {
     const { errors, isValid } = validateInput(request.payload);
     if (!isValid) {
-      return reject(Boom.badRequest('Invalid query', errors));
+      const error = Boom.badRequest('Invalid query', errors);
+      error.output.payload.info = errors;
+      return reject(error);
     }
 
     let User = request.server.plugins.db.User;

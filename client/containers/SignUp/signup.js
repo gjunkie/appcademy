@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { func } from 'prop-types';
 
 class SignUp extends Component {
   constructor(props) {
@@ -6,6 +7,8 @@ class SignUp extends Component {
 
     this.state = {
       email: '',
+      errors: {},
+      isSubmitting: false,
       password: '',
       passwordConfirmation: '',
       username: '',
@@ -18,10 +21,32 @@ class SignUp extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.onCreateUser(this.state);
+    this.setState({
+      errors: {},
+      isSubmitting: true,
+    });
+
+    this.props.onCreateUser(this.state).then(
+      (response) => {
+        // do something with response
+        this.setState({
+          isSubmitting: false,
+        });
+      }, (err) => {
+        this.setState({
+          errors: err.response.data.info,
+          isSubmitting: false,
+        });
+      }
+    );
   }
 
   render() {
+    const {
+      errors,
+      isSubmitting,
+    } = this.state;
+
     return (
       <form onSubmit={this.onSubmit}>
         <h2>Sign Up!</h2>
@@ -34,6 +59,7 @@ class SignUp extends Component {
             onChange={this.onChange}
             type="text"
             value={this.state.username} />
+          {errors.username && <span>{errors.username}</span>}
         </div>
 
         <div>
@@ -44,6 +70,7 @@ class SignUp extends Component {
             onChange={this.onChange}
             type="text"
             value={this.state.email} />
+          {errors.email && <span>{errors.email}</span>}
         </div>
 
         <div>
@@ -54,6 +81,7 @@ class SignUp extends Component {
             onChange={this.onChange}
             type="password"
             value={this.state.password} />
+          {errors.password && <span>{errors.password}</span>}
         </div>
 
         <div>
@@ -64,12 +92,20 @@ class SignUp extends Component {
             onChange={this.onChange}
             type="password"
             value={this.state.passwordConfirmation} />
+          {errors.passwordConfirmation && <span>{errors.passwordConfirmation}</span>}
         </div>
 
-        <button>Sign Up</button>
+        <button disabled={isSubmitting}>Sign Up</button>
       </form>
     )
   };
+};
+
+SignUp.defaultProps = {
+};
+
+SignUp.propTypes = {
+  onCreateUser: func,
 };
 
 export default SignUp;

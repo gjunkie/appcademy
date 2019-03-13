@@ -6,9 +6,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onCreateUser: (userData) => {
-    dispatch(actions.createUser(userData));
-  },
+  onCreateUser: (userData) => (
+    dispatch(actions.createUser(userData))
+  ),
 });
 
 const ConnectedContainer = connect(mapStateToProps, mapDispatchToProps)(SignUp);
