@@ -1,4 +1,4 @@
-import App from '../containers/app/App';
+import App from '../containers/App';
 import ConnectedContainer from '../containers/exampleContainer';
 //import AnotherContainer from '../containers/anotherExample';
 

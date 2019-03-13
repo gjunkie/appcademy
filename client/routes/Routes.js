@@ -4,7 +4,7 @@ import { Router } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
 import { createBrowserHistory } from 'history';
 
-import App from '../containers/app/App';
+import App from '../containers/App';
 
 import PageRoutes from './PageRoutes'
 
