@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/gjunkie/hapi-react-kit#readme",
   "dependencies": {
-    "bell": "^9.5.0",
     "faker": "^4.1.0",
     "good-mongodb": "^0.4.0",
     "hapi": "^18.1.0",
