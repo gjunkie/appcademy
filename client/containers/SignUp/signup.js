@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { func } from 'prop-types';
+
+import validateInput from '../../helpers/Validator';
 
 class SignUp extends Component {
   constructor(props) {
@@ -15,12 +18,24 @@ class SignUp extends Component {
     }
   }
 
+  isValid = () => {
+    const { errors, isValid } = validateInput(this.state);
+
+    if (!isValid) {
+      this.setState({ errors });
+    }
+
+    return isValid;
+  }
+
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit = (e) => {
     e.preventDefault();
+    if (!this.isValid()) return;
+
     this.setState({
       errors: {},
       isSubmitting: true,
@@ -28,11 +43,9 @@ class SignUp extends Component {
 
     this.props.onCreateUser(this.state).then(
       (response) => {
-        // do something with response
-        this.setState({
-          isSubmitting: false,
-        });
-      }, (err) => {
+        return <Redirect to="/" />
+      },
+      (err) => {
         this.setState({
           errors: err.response.data.info,
           isSubmitting: false,
