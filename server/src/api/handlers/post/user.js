@@ -1,9 +1,12 @@
 import Hapi from 'hapi';
 import Boom from 'boom';
-import Validator from 'validator';
+import bcrypt from 'bcrypt-nodejs';
 // import faker from 'faker';
+import Validator from 'validator';
 
-const validateInput = (data) => {
+const SALT_ROUNDS = 10;
+
+const validations= (data) => {
   let errors = {};
 
   if (!data.username.length) {
@@ -37,30 +40,80 @@ const validateInput = (data) => {
     isValid: !hasErrors,
   }
 }
+
+const createUser = (userData, UserModel, resolve) => {
+  return UserModel.create(userData, function(err, newUser) {
+    if (err) {
+      return reject(Hapi.error.internal('create user', err));
+    }
+    return resolve({
+      email: newUser.email,
+      username: newUser.username,
+    });
+  });
+};
+
+const findUserBy = (field, value, UserModel) => {
+  return new Promise((resolve, reject) => {
+    UserModel
+      .findOne({ [field]: value })
+      .exec(function(err, user){
+        if (err) {
+          const error = Boom.badRequest('Invalid query', errors);
+          error.output.payload.info = errors;
+        }
+        const errors = {};
+        if (user) { errors[field] = `${field} already exists` }
+        resolve(errors);
+      });
+  });
+};
+
+const validateInput = (request, otherValidations) => {
+  let { errors, isValid } = otherValidations(request.payload);
+  const UserModel = request.server.plugins.db.User;
+
+  return Promise.all([
+    findUserBy('email', request.payload.email, UserModel),
+    findUserBy('username', request.payload.username, UserModel),
+  ]).then(([emailError, usernameError]) => {
+    console.log('resolved', emailError, usernameError)
+    const finalErrors = Object.assign({}, errors, emailError, usernameError);
+    console.log({finalErrors})
+
+    return {
+      errors: finalErrors,
+      isValid,
+    }
+  });
+};
+
 /*
  * Creates a user with the payload sent in the request.
  */
 module.exports = (request, h) => {
-  console.log("You hit the POST endpoint! You sent this:");
-  console.log(request.payload);
-
   return new Promise((resolve, reject) => {
-    const { errors, isValid } = validateInput(request.payload);
-    if (!isValid) {
-      const error = Boom.badRequest('Invalid query', errors);
-      error.output.payload.info = errors;
-      return reject(error);
-    }
+    validateInput(request, validations).then(({ errors, isValid }) => {
+      const hasErrors = Object.keys(errors).length;
 
-    let User = request.server.plugins.db.User;
-    const user = User.create(request.payload, function(err, newUser) {
-      if (err) {
-        return reject(Hapi.error.internal('create user', err));
+      if (!isValid || hasErrors) {
+        const error = Boom.badRequest('Invalid query', errors);
+        error.output.payload.info = errors;
+        return reject(error);
       }
-      return resolve(newUser)
-    });
 
-    return user;
+      bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
+        bcrypt.hash(request.payload.password, salt, null, (err, hash) => {
+          const userData = {
+            username: request.payload.username,
+            email: request.payload.email,
+            password: hash,
+          };
+          const UserModel = request.server.plugins.db.User;
+          return createUser(userData, UserModel, resolve);
+        });
+      });
+    })
   })
 };
 

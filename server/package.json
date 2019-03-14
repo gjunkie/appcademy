@@ -4,7 +4,7 @@
   "description": "API server for Appcademy Awards.",
   "main": "server.js",
   "scripts": {
-    "start": "node bootstrap.js",
+    "start": "nodemon bootstrap.js",
     "build": "babel src -d lib"
   },
   "repository": {
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/gjunkie/hapi-react-kit#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "faker": "^4.1.0",
     "good-mongodb": "^0.4.0",
     "hapi": "^18.1.0",
@@ -38,6 +39,7 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
+    "nodemon": "^1.18.10",
     "webpack": "^4.29.6"
   }
 }
