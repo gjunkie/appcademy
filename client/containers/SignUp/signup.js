@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { func } from 'prop-types';
 
-import validateInput from '../../helpers/Validator';
+import validateInput from '../../helpers/validators/signup';
 
 class SignUp extends Component {
   constructor(props) {
