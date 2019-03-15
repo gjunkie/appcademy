@@ -8,6 +8,7 @@ module.exports = {
     users: getHandlers.users,
   },
   post: {
+    auth: postHandlers.auth,
     user: postHandlers.user,
   },
   delete: {

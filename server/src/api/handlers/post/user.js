@@ -41,8 +41,8 @@ const validations= (data) => {
   }
 }
 
-const createUser = (userData, UserModel, resolve) => {
-  return UserModel.create(userData, function(err, newUser) {
+const generateUser = (userData, UserModel, resolve) => (
+  UserModel.create(userData, (err, newUser) => {
     if (err) {
       return reject(Hapi.error.internal('create user', err));
     }
@@ -50,32 +50,32 @@ const createUser = (userData, UserModel, resolve) => {
       email: newUser.email,
       username: newUser.username,
     });
-  });
-};
+  })
+);
 
-const findUserBy = (field, value, UserModel) => {
-  return new Promise((resolve, reject) => {
-    UserModel
-      .findOne({ [field]: value })
-      .exec(function(err, user){
+const findUserBy = field => (
+  new Promise((resolve, reject) => {
+    const UserModel = request.server.plugins.db.User;
+    UserModel.findOne({ [field]: request.payload[field] })
+      .exec((err, user) => {
         if (err) {
           const error = Boom.badRequest('Invalid query', errors);
           error.output.payload.info = errors;
+          resolve(errors);
         }
         const errors = {};
         if (user) { errors[field] = `${field} already exists` }
         resolve(errors);
       });
-  });
-};
+  })
+);
 
 const validateInput = (request, otherValidations) => {
   let { errors, isValid } = otherValidations(request.payload);
-  const UserModel = request.server.plugins.db.User;
 
   return Promise.all([
-    findUserBy('email', request.payload.email, UserModel),
-    findUserBy('username', request.payload.username, UserModel),
+    findUserBy('email', request),
+    findUserBy('username', request),
   ]).then(([emailError, usernameError]) => {
     const finalErrors = Object.assign({}, errors, emailError, usernameError);
     return {
@@ -88,8 +88,8 @@ const validateInput = (request, otherValidations) => {
 /*
  * Creates a user with the payload sent in the request.
  */
-module.exports = (request, h) => {
-  return new Promise((resolve, reject) => {
+const createUser = (request, h) => (
+  new Promise((resolve, reject) => {
     validateInput(request, validations).then(({ errors, isValid }) => {
       const hasErrors = Object.keys(errors).length;
 
@@ -107,10 +107,11 @@ module.exports = (request, h) => {
             password: hash,
           };
           const UserModel = request.server.plugins.db.User;
-          return createUser(userData, UserModel, resolve);
+          return generateUser(userData, UserModel, resolve);
         });
       });
     })
   })
-};
+);
 
+export default createUser;

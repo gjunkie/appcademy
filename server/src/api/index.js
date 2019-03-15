@@ -8,6 +8,7 @@ const plugin = {
       { method: 'GET', path: '/api/getuser', options: { handler: requestHandlers.get.user } },
       { method: 'GET', path: '/api/getusers', options: { handler: requestHandlers.get.users } },
       { method: 'POST', path: '/api/createuser', options: { handler: requestHandlers.post.user } },
+      { method: 'POST', path: '/api/auth', options: { handler: requestHandlers.post.auth } },
       { method: 'DELETE', path: '/api/deleteuser/{id}', options: { handler: requestHandlers.delete.user } },
     ]);
 

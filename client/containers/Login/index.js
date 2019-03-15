@@ -7,9 +7,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onLogin: (userData) => {
-    dispatch(actions.login());
-  },
+  onLogin: (userCreds) => (
+    dispatch(actions.login(userCreds))
+  ),
 });
 
 const ConnectedContainer = connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { object } from 'prop-types';
 
 import validateInput from '../../helpers/validators/login';
