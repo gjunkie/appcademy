@@ -77,10 +77,7 @@ const validateInput = (request, otherValidations) => {
     findUserBy('email', request.payload.email, UserModel),
     findUserBy('username', request.payload.username, UserModel),
   ]).then(([emailError, usernameError]) => {
-    console.log('resolved', emailError, usernameError)
     const finalErrors = Object.assign({}, errors, emailError, usernameError);
-    console.log({finalErrors})
-
     return {
       errors: finalErrors,
       isValid,
