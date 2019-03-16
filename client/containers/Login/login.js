@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { object } from 'prop-types';
+import { func } from 'prop-types';
 
 import validateInput from '../../helpers/validators/login';
-
-// import './styles.css';
 
 class Login extends Component {
   constructor(props) {
@@ -15,7 +13,33 @@ class Login extends Component {
       errors: {},
       isSubmitting: false,
       password: '',
-    }
+    };
+  }
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    if (!this.isValid()) return;
+
+    this.setState({
+      errors: {},
+      isSubmitting: true,
+    });
+
+    this.login().then(
+      () => (
+        <Redirect to="/" />
+      ),
+      (err) => {
+        this.setState({
+          errors: err.response.data.info,
+          isSubmitting: false,
+        });
+      },
+    );
   }
 
   isValid = () => {
@@ -34,35 +58,7 @@ class Login extends Component {
       password: this.state.password,
     };
 
-    console.log({userCreds})
     return this.props.onLogin(userCreds);
-  }
-
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  onSubmit = (e) => {
-    e.preventDefault();
-    if (!this.isValid()) return;
-
-    this.setState({
-      errors: {},
-      isSubmitting: true,
-    });
-
-    this.login().then(
-      (response) => {
-        return <Redirect to="/" />
-      },
-      (err) => {
-        this.setState({
-          errors: err.response.data.info,
-          isSubmitting: false,
-        });
-      }
-    );
-
   }
 
   // good candidate for react hooks
@@ -71,7 +67,7 @@ class Login extends Component {
       errors,
       identifier,
       isSubmitting,
-      password
+      password,
     } = this.state;
 
     return (
@@ -102,16 +98,12 @@ class Login extends Component {
           <button disabled={isSubmitting} onClick={this.onSubmit}>Login</button>
         </div>
       </div>
-    )
-  };
-};
-
-Login.defaultProps = {
-  user: {},
-};
+    );
+  }
+}
 
 Login.propTypes = {
-  user: object,
+  onLogin: func.isRequired,
 };
 
 export default Login;

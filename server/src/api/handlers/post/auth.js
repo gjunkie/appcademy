@@ -67,7 +67,7 @@ const auth = request => (
         };
         const token = jwt.sign(userData, 'shhhhh');
 
-        resolve({token});
+        resolve({ token });
       });
     });
   })
