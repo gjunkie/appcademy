@@ -1,10 +1,10 @@
-import axios from 'axios'
+import axios from 'axios';
 
-export const login = payload => dispatch => {
-  return axios.post('/api/auth', {
+const login = payload => dispatch => (
+  axios.post('/api/auth', {
     identifier: payload.identifier,
     password: payload.password,
-  });
-};
+  })
+);
 
 export default login;

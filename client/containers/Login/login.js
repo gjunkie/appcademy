@@ -34,6 +34,7 @@ class Login extends Component {
       password: this.state.password,
     };
 
+    console.log({userCreds})
     return this.props.onLogin(userCreds);
   }
 
