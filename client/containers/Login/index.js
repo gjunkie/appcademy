@@ -6,8 +6,8 @@ const mapStateToProps = state => ({
   users: state.users || [],
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onLogin: (userCreds) => (
+const mapDispatchToProps = dispatch => ({
+  onLogin: userCreds => (
     dispatch(actions.login(userCreds))
   ),
 });

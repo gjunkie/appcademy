@@ -6,6 +6,7 @@ import setCurrentUser from './setCurrentUser';
 import loadUser from './loadUser';
 import loadUsers from './loadUsers';
 import login from './login';
+import logout from './logout';
 import removeUser from './removeUser';
 import saveUser from './saveUser';
 
@@ -18,6 +19,7 @@ const actions = {
   loadUser,
   loadUsers,
   login,
+  logout,
   removeUser,
   saveUser,
 };

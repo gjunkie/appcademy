@@ -114,9 +114,6 @@ class SignUp extends Component {
   };
 };
 
-SignUp.defaultProps = {
-};
-
 SignUp.propTypes = {
   onCreateUser: func,
 };

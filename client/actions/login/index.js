@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../../helpers/setAuthorizationToken';
-import loadCurrentUser from '../loadCurrentUser';
+import setCurrentUser from '../setCurrentUser';
 
 const login = payload => dispatch => (
   axios.post('/api/auth', payload)
@@ -11,7 +11,7 @@ const login = payload => dispatch => (
       localStorage.setItem('jwtToken', token);
       setAuthorizationToken(token);
 
-      dispatch(loadCurrentUser(jwt.decode(token)));
+      dispatch(setCurrentUser(jwt.decode(token)));
     })
 );
 
