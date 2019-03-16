@@ -1,7 +1,6 @@
 import Hapi from 'hapi';
 import Boom from 'boom';
 import bcrypt from 'bcrypt-nodejs';
-import Validator from 'validator';
 
 const findUserBy = (field, request) => (
   new Promise((resolve, reject) => {
@@ -9,8 +8,8 @@ const findUserBy = (field, request) => (
     UserModel.findOne({ [field]: request.payload.identifier })
       .exec((err, user) => {
         if (err) {
-          const error = Boom.badRequest('Invalid query', errors);
-          error.output.payload.info = errors;
+          const error = Boom.badRequest('Invalid query');
+          error.output.payload.info = error;
           reject(error);
         }
         if (!user) {
@@ -18,7 +17,7 @@ const findUserBy = (field, request) => (
         }
 
         resolve(user);
-    });
+      });
   })
 );
 
@@ -32,7 +31,7 @@ const findUser = request => (
     if (!user) {
       const errors = {
         identifier: 'Not Found',
-      }
+      };
       return { errors };
     }
 
@@ -46,8 +45,8 @@ const findUser = request => (
 /*
  * Creates a user with the payload sent in the request.
  */
-const auth = (request, h) => (
-  new Promise((resolve, reject) => {
+const auth = request => (
+  new Promise((resolve) => {
     findUser(request).then((data) => {
       if (data.errors || !data.user) {
         const error = Boom.unauthorized('Unauthorized', data.errors);
@@ -56,6 +55,10 @@ const auth = (request, h) => (
       }
 
       bcrypt.compare(request.payload.password, data.user.password, (err, res) => {
+        if (!res) {
+          const error = Boom.unauthorized('Unauthorized');
+          resolve(error);
+        }
         resolve({
           email: data.user.email,
           username: data.user.username,
