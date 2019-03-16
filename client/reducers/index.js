@@ -11,10 +11,11 @@ export default (state = {}, action) => {
         users: state.users.filter(user => user.id !== action.id),
       };
 
-    case 'LOAD_ME':
+    case 'SET_CURRENT_USER':
       return {
         ...state,
-        me: action.me,
+        isAuthenticated: !!Object.keys(action.user).length,
+        user: action.user,
       };
 
     case 'LOAD_USER':
