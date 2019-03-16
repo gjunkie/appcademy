@@ -1,3 +1,4 @@
+import Hapi from 'hapi';
 import Boom from 'boom';
 import bcrypt from 'bcrypt-nodejs';
 
