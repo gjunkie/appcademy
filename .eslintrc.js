@@ -6,4 +6,9 @@ module.exports = {
     "import"                                          
   ],
   "parser": "babel-eslint",
+  "env": [
+    "browser",
+    "node",
+    "mongodb"
+  ]
 };

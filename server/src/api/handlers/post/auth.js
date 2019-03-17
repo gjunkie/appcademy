@@ -49,7 +49,7 @@ const auth = request => (
   new Promise((resolve) => {
     findUser(request).then((data) => {
       if (data.errors || !data.user) {
-        const error = Boom.unauthorized('Unauthorized', data.errors);
+        const error = Boom.unauthorized('User not found', data.errors);
         error.output.payload.info = data.errors;
         resolve(error);
       }

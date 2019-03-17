@@ -5,11 +5,46 @@ import requestHandlers from './handlers';
 const plugin = {
   register: (server, options) => {
     server.route([
-      { method: 'GET', path: '/api/getuser', options: { handler: requestHandlers.get.user } },
-      { method: 'GET', path: '/api/getusers', options: { handler: requestHandlers.get.users } },
-      { method: 'POST', path: '/api/createuser', options: { handler: requestHandlers.post.user } },
-      { method: 'POST', path: '/api/auth', options: { handler: requestHandlers.post.auth } },
-      { method: 'DELETE', path: '/api/deleteuser/{id}', options: { handler: requestHandlers.delete.user } },
+      {
+        method: 'GET',
+        path: '/api/getuser',
+        config: {
+          auth: 'token',
+          handler: requestHandlers.get.user,
+        },
+      },
+      {
+        method: 'GET',
+        path: '/api/getusers',
+        config: {
+          auth: 'token',
+          handler: requestHandlers.get.users,
+        },
+      },
+      {
+        method: 'POST',
+        path: '/api/createuser',
+        config: {
+          auth: false,
+          handler: requestHandlers.post.user,
+        },
+      },
+      {
+        method: 'POST',
+        path: '/api/auth',
+        config: {
+          auth: 'token',
+          handler: requestHandlers.post.auth,
+        },
+      },
+      {
+        method: 'DELETE',
+        path: '/api/deleteuser/{id}',
+        config: {
+          auth: 'token',
+          handler: requestHandlers.delete.user,
+        },
+      },
     ]);
 
     // server.expose('get', (request, url, callback) => {
