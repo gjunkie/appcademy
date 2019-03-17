@@ -5,10 +5,5 @@ module.exports = {
     "jsx-a11y",                                       
     "import"                                          
   ],
-  "parser": "babel-eslint",
-  "env": [
-    "browser",
-    "node",
-    "mongodb"
-  ]
+  "parser": "babel-eslint"
 };

@@ -6,8 +6,8 @@ import Validator from 'validator';
 
 const SALT_ROUNDS = 10;
 
-const validations= (data) => {
-  let errors = {};
+const validations = (data) => {
+  const errors = {};
 
   if (!data.username.length) {
     errors.username = 'Username is required';
@@ -38,13 +38,15 @@ const validations= (data) => {
   return {
     errors,
     isValid: !hasErrors,
-  }
-}
+  };
+};
 
 const generateUser = (userData, UserModel, resolve) => (
   UserModel.create(userData, (err, newUser) => {
     if (err) {
-      return reject(Hapi.error.internal('create user', err));
+      const error = Boom.badRequest('Invalid query');
+      error.output.payload.info = error;
+      resolve(error);
     }
     return resolve({
       email: newUser.email,
@@ -53,25 +55,27 @@ const generateUser = (userData, UserModel, resolve) => (
   })
 );
 
-const findUserBy = field => (
-  new Promise((resolve, reject) => {
+const findUserBy = (field, request) => (
+  new Promise((resolve) => {
     const UserModel = request.server.plugins.db.User;
     UserModel.findOne({ [field]: request.payload[field] })
       .exec((err, user) => {
         if (err) {
-          const error = Boom.badRequest('Invalid query', errors);
-          error.output.payload.info = errors;
-          resolve(errors);
+          const error = Boom.badRequest('Invalid query');
+          error.output.payload.info = error;
+          resolve(error);
         }
         const errors = {};
-        if (user) { errors[field] = `${field} already exists` }
+        if (user) {
+          errors[field] = `${field} already exists`;
+        }
         resolve(errors);
       });
   })
 );
 
 const validateInput = (request, otherValidations) => {
-  let { errors, isValid } = otherValidations(request.payload);
+  const { errors, isValid } = otherValidations(request.payload);
 
   return Promise.all([
     findUserBy('email', request),
@@ -81,14 +85,11 @@ const validateInput = (request, otherValidations) => {
     return {
       errors: finalErrors,
       isValid,
-    }
+    };
   });
 };
 
-/*
- * Creates a user with the payload sent in the request.
- */
-const createUser = (request, h) => (
+const createUser = request => (
   new Promise((resolve, reject) => {
     validateInput(request, validations).then(({ errors, isValid }) => {
       const hasErrors = Object.keys(errors).length;
@@ -100,7 +101,7 @@ const createUser = (request, h) => (
       }
 
       bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
-        bcrypt.hash(request.payload.password, salt, null, (err, hash) => {
+        bcrypt.hash(request.payload.password, salt, null, (error, hash) => {
           const userData = {
             username: request.payload.username,
             email: request.payload.email,
@@ -110,7 +111,7 @@ const createUser = (request, h) => (
           return generateUser(userData, UserModel, resolve);
         });
       });
-    })
+    });
   })
 );
 

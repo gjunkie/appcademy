@@ -19,15 +19,16 @@ const validate = async (decoded, request) => (
 );
 
 const plugin = {
-  register: (server) => {
+  register: (server, options) => {
     server.register({
       plugin: jwtAuth,
     });
 
+    console.log(options.secret)
     server.auth.strategy(
       'token', 'jwt',
       {
-        key: 'shhhhh', // Never Share your secret key
+        key: options.secret, // Never Share your secret key
         validate, // validate function defined above
         verifyOptions: { algorithms: ['HS256'] }, // pick a strong algorithm
       },

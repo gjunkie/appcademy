@@ -1,9 +1,12 @@
 import Hapi from 'hapi';
+import dotenv from 'dotenv';
 import mongo from 'mongodb';
+
 import api from './api';
 import auth from './auth';
-import www from './www';
 import db from '../db';
+
+dotenv.config();
 
 const server = new Hapi.Server({
   port: 8000,
@@ -16,10 +19,16 @@ const server = new Hapi.Server({
 });
 
 async function setupAndStart() {
+  server.app.AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY;
+
   await server.register([
-    { plugin: auth },
+    {
+      plugin: auth,
+      options: {
+        secret: process.env.AUTH_SECRET_KEY,
+      },
+    },
     { plugin: api },
-    { plugin: www },
     {
       plugin: db,
       options: {
@@ -29,7 +38,7 @@ async function setupAndStart() {
   ]);
 
   await server.start().then(() => {
-    console.log('API server started!');
+    console.log('API server started!'); // eslint-disable-line no-console
   });
 }
 

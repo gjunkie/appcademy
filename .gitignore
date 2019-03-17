@@ -2,3 +2,4 @@
 **/node_modules
 /data
 /server/lib
+/server/.env

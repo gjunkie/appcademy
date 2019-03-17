@@ -3,7 +3,7 @@
 import requestHandlers from './handlers';
 
 const plugin = {
-  register: (server, options) => {
+  register: (server) => {
     server.route([
       {
         method: 'GET',
@@ -33,7 +33,7 @@ const plugin = {
         method: 'POST',
         path: '/api/auth',
         config: {
-          auth: 'token',
+          auth: false,
           handler: requestHandlers.post.auth,
         },
       },
@@ -46,29 +46,6 @@ const plugin = {
         },
       },
     ]);
-
-    // server.expose('get', (request, url, callback) => {
-    // server.inject({
-    // method: 'GET',
-    // url: url,
-    // headers: {
-    // cookie: (request.headers) ? request.headers.cookie : false
-    // },
-    // credentials: request.auth.credentials || null
-    // }, callback);
-    // });
-
-    // server.expose('post', (request, url, data, callback) => {
-    // server.inject({
-    // method: 'POST',
-    // url: url,
-    // payload: data,
-    // headers: {
-    // cookie: (request.headers) ? request.headers.cookie : false
-    // },
-    // credentials: request.auth.credentials.creds || null
-    // }, callback);
-    // });
   },
   name: 'api',
 };

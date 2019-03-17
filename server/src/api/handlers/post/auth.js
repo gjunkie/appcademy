@@ -65,7 +65,7 @@ const auth = request => (
           email: data.user.email,
           username: data.user.username,
         };
-        const token = jwt.sign(userData, 'shhhhh');
+        const token = jwt.sign(userData, request.server.app.AUTH_SECRET_KEY);
 
         resolve({ token });
       });
