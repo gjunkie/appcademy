@@ -5,5 +5,8 @@ module.exports = {
     "jsx-a11y",                                       
     "import"                                          
   ],
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+  }
 };

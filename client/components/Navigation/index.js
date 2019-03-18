@@ -1,18 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bool, func, object } from 'prop-types';
+import { bool, func } from 'prop-types';
 import { Link } from 'react-router-dom';
 import actions from '../../actions';
 
 class Navigation extends React.Component {
   logout = (e) => {
     e.preventDefault();
-    this.props.onLogout();
+
+    const { onLogout } = this.props;
+    onLogout();
   }
 
   render() {
     const guestLinks = (
       <ul className="nav">
+        <li><Link to="/">Home</Link></li>
         <li><Link to="/login/">Login</Link></li>
         <li><Link to="/signup/">Sign Up</Link></li>
       </ul>
@@ -20,6 +23,7 @@ class Navigation extends React.Component {
 
     const userLinks = (
       <ul className="nav">
+        <li><Link to="/">Home</Link></li>
         <li><Link to="/example/">Example Route</Link></li>
         <li><Link to="/vote/">Vote</Link></li>
         <li><Link to="/profile/">Profile</Link></li>
@@ -37,13 +41,12 @@ class Navigation extends React.Component {
 }
 
 Navigation.defaultProps = {
-  user: {},
+  isAuthenticated: false,
 };
 
 Navigation.propTypes = {
-  isAuthenticated: bool.isRequired,
+  isAuthenticated: bool,
   onLogout: func.isRequired,
-  user: object,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -54,7 +57,6 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   isAuthenticated: state.isAuthenticated,
-  user: state.user,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
