@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import faker from 'faker';
 import User from '../../components/User';
 

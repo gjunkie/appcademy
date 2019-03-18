@@ -1,20 +1,15 @@
-const assert = require('assert');
-const expect = require('chai').expect;
-const nock = require('nock');
-
-const polyfill = require('es6-promise').polyfill;
-Object.assign = require('object-assign');
-polyfill()
+import assert from 'assert';
+import { expect } from 'chai';
+import nock from 'nock';
 
 const helpers = require('./helpers');
 
-describe('Request', function() {
-
-  it('should create a new user', function() {
+describe('Request', () => {
+  it('should create a new user', () => {
     const user = helpers.default.getNewUser();
 
     expect(typeof user.id).to.equal('number');
     expect(typeof user.name).to.equal('string');
     expect(typeof user.title).to.equal('string');
   });
-})
+});
