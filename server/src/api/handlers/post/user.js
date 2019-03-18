@@ -1,4 +1,4 @@
-import Hapi from 'hapi';
+// import Hapi from 'hapi';
 import Boom from 'boom';
 import bcrypt from 'bcrypt-nodejs';
 // import faker from 'faker';
@@ -100,7 +100,7 @@ const createUser = request => (
         return reject(error);
       }
 
-      bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
+      return bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
         bcrypt.hash(request.payload.password, salt, null, (error, hash) => {
           const userData = {
             username: request.payload.username,

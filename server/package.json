@@ -4,8 +4,9 @@
   "description": "API server for Appcademy Awards.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon bootstrap.js",
-    "build": "babel src -d lib"
+    "start": "nodemon -L bootstrap.js",
+    "build": "babel src -d lib",
+    "test": "mocha --require ./bootstrap.js --exclude node_modules --recursive -- './**/*.test.js'"
   },
   "repository": {
     "type": "git",
@@ -28,7 +29,7 @@
     "faker": "^4.1.0",
     "good-mongodb": "^0.4.0",
     "hapi": "^18.1.0",
-    "hapi-auth-cookie": "^9.1.0",
+    "hapi-auth-cookie": "^10.0.0",
     "hapi-auth-jwt2": "^8.3.0",
     "jsonwebtoken": "^8.5.0",
     "lodash-node": "^3.10.2",
@@ -43,6 +44,7 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
+    "mocha": "^6.0.2",
     "nodemon": "^1.18.10",
     "webpack": "^4.29.6"
   }

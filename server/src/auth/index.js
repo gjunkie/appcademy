@@ -24,7 +24,6 @@ const plugin = {
       plugin: jwtAuth,
     });
 
-    console.log(options.secret)
     server.auth.strategy(
       'token', 'jwt',
       {
