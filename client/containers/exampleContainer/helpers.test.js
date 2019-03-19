@@ -6,7 +6,7 @@ const helpers = require('./helpers');
 
 describe('Request', () => {
   it('should create a new user', () => {
-    const user = helpers.default.getNewUser();
+    const user = helpers.getNewUser();
 
     expect(typeof user.id).to.equal('number');
     expect(typeof user.name).to.equal('string');

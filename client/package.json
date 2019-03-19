@@ -7,7 +7,7 @@
     "compile": "webpack",
     "compile:json": "webpack --profile --json",
     "start": "node --max_old_space_size=8192 ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --host 0.0.0.0 --port 8080",
-    "test": "mocha --require ./bootstrap.js --exclude node_modules --recursive -- './**/*.test.js'"
+    "test": "mocha --require ./bootstrap.js --exclude node_modules --recursive './**/*.test.js'"
   },
   "repository": {
     "type": "git",
