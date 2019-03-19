@@ -23,18 +23,26 @@ const plugin = {
       },
       {
         method: 'POST',
-        path: '/api/signup',
-        config: {
-          auth: false,
-          handler: requestHandlers.post.signUp,
-        },
-      },
-      {
-        method: 'POST',
         path: '/api/auth',
         config: {
           auth: false,
           handler: requestHandlers.post.auth,
+        },
+      },
+      {
+        method: 'POST',
+        path: '/api/game',
+        config: {
+          auth: 'token',
+          handler: requestHandlers.post.game,
+        },
+      },
+      {
+        method: 'POST',
+        path: '/api/signup',
+        config: {
+          auth: false,
+          handler: requestHandlers.post.signUp,
         },
       },
       {

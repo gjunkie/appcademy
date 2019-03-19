@@ -9,6 +9,7 @@ module.exports = {
   },
   post: {
     auth: postHandlers.auth,
+    game: postHandlers.game,
     signUp: postHandlers.signUp,
   },
   delete: {

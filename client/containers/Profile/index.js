@@ -1,45 +1,15 @@
-import React, { Component } from 'react';
-import { object } from 'prop-types';
+import { connect } from 'react-redux';
+import actions from '../../actions';
+import profile from './profile';
 
-import 'isomorphic-fetch';
-// import './styles.css';
+const mapStateToProps = () => ({
+});
 
-class Profile extends Component {
-  createGame = () => {
-    this.props.onCreateGame();
-  }
+const mapDispatchToProps = dispatch => ({
+  onCreateGame: userData => (
+    dispatch(actions.createGame(userData))
+  ),
+});
 
-  joinGame = (gameId) => {
-    this.props.onJoinGame(gameId);
-  }
-
-  setUserName = (userName) => {
-    this.props.onSetUserName(userName);
-  }
-
-  // good candidate for react hooks
-  render() {
-    return (
-      <div className="profile">
-        <h2>Profile</h2>
-        <input
-          value={this.props.user.name}
-          onChange={this.setUserName} />
-        <div>
-          <button onClick={this.createGame}>Create Game</button>
-          <button onClick={this.joinGame}>Join Game</button>
-        </div>
-      </div>
-    )
-  };
-};
-
-Profile.defaultProps = {
-  user: {},
-};
-
-Profile.propTypes = {
-  user: object,
-};
-
-export default Profile;
+const ConnectedContainer = connect(mapStateToProps, mapDispatchToProps)(profile);
+export default ConnectedContainer;

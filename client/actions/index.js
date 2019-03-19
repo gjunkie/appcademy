@@ -1,4 +1,5 @@
 import createUser from './createUser';
+import createGame from './createGame';
 import deleteUser from './deleteUser';
 import getUser from './getUser';
 import getUsers from './getUsers';
@@ -11,6 +12,7 @@ import removeUser from './removeUser';
 
 const actions = {
   createUser,
+  createGame,
   deleteUser,
   getUser,
   getUsers,
