@@ -15,7 +15,7 @@ class SignUp extends Component {
       password: '',
       passwordConfirmation: '',
       username: '',
-    }
+    };
   }
 
   isValid = () => {
@@ -41,17 +41,15 @@ class SignUp extends Component {
       isSubmitting: true,
     });
 
-    this.props.onCreateUser(this.state).then(
-      (response) => {
-        return <Redirect to="/" />
-      },
-      (err) => {
-        this.setState({
-          errors: err.response.data.info,
-          isSubmitting: false,
-        });
-      }
-    );
+    this.props.onSignUp(this.state).then(() => {
+      return <Redirect to="/" />
+    },
+    (err) => {
+      this.setState({
+        errors: err.response.data.info,
+        isSubmitting: false,
+      });
+    });
   }
 
   render() {
@@ -110,12 +108,12 @@ class SignUp extends Component {
 
         <button disabled={isSubmitting}>Sign Up</button>
       </form>
-    )
-  };
-};
+    );
+  }
+}
 
 SignUp.propTypes = {
-  onCreateUser: func,
+  onSignUp: func.isRequired,
 };
 
 export default SignUp;

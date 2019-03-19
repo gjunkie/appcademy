@@ -8,7 +8,6 @@ import loadUsers from './loadUsers';
 import login from './login';
 import logout from './logout';
 import removeUser from './removeUser';
-import saveUser from './saveUser';
 
 const actions = {
   createUser,
@@ -21,7 +20,6 @@ const actions = {
   login,
   logout,
   removeUser,
-  saveUser,
 };
 
 export default actions;

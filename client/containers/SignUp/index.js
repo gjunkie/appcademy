@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
 import actions from '../../actions';
-import SignUp from './SignUp';
+import signup from './signup';
 
-const mapStateToProps = state => ({
+const mapStateToProps = () => ({
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onCreateUser: (userData) => (
+const mapDispatchToProps = dispatch => ({
+  onSignUp: userData => (
     dispatch(actions.createUser(userData))
   ),
 });
 
-const ConnectedContainer = connect(mapStateToProps, mapDispatchToProps)(SignUp);
+const ConnectedContainer = connect(mapStateToProps, mapDispatchToProps)(signup);
 export default ConnectedContainer;
-

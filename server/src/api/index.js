@@ -23,10 +23,10 @@ const plugin = {
       },
       {
         method: 'POST',
-        path: '/api/createuser',
+        path: '/api/signup',
         config: {
           auth: false,
-          handler: requestHandlers.post.user,
+          handler: requestHandlers.post.signUp,
         },
       },
       {

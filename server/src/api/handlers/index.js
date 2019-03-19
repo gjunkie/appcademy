@@ -9,7 +9,7 @@ module.exports = {
   },
   post: {
     auth: postHandlers.auth,
-    user: postHandlers.user,
+    signUp: postHandlers.signUp,
   },
   delete: {
     user: deleteHandlers.user,
