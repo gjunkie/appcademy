@@ -1,9 +1,10 @@
-const mongoose = require('mongoose');
-const _ = require('lodash-node');
+import mongoose from 'mongoose';
 
-const models = require('require-all')(__dirname + '/models');
+import requireAll from 'require-all';
 
-exports.plugin = {
+const models = requireAll({ dirname: `${__dirname}/models` });
+
+const plugin = {
   register: (server, options) => {
     mongoose.connect(options.url);
 
@@ -11,27 +12,11 @@ exports.plugin = {
 
     server.expose('connection', db);
 
-    _.forIn(models, (value, key) => {
-      server.expose(key, value);
+    Object.keys(models).forEach((key, value) => {
+      server.expose(key, models[key]);
     });
   },
-  name: 'db'
-}
-//const register = async (plugin, options, next) => {
+  name: 'db',
+};
 
-  //mongoose.connect(options.url, () => {
-    //next();
-  //});
-
-  //const db = mongoose.connection;
-
-  //plugin.expose('connection', db);
-
-  //_.forIn(models, (value, key) => {
-    //plugin.expose(key, value);
-  //});
-//};
-
-//exports.register.attributes = { 
-  //name: 'db'
-//};
+export default plugin;
