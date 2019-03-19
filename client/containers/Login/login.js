@@ -53,12 +53,15 @@ class Login extends Component {
   }
 
   login = () => {
+    const { onLogin } = this.props;
+    const { identifier, password } = this.state;
+
     const userCreds = {
-      identifier: this.state.identifier,
-      password: this.state.password,
+      identifier,
+      password,
     };
 
-    return this.props.onLogin(userCreds);
+    return onLogin(userCreds);
   }
 
   // good candidate for react hooks
@@ -80,7 +83,8 @@ class Login extends Component {
             name="identifier"
             onChange={this.onChange}
             type="text"
-            value={identifier} />
+            value={identifier}
+          />
           {errors.identifier && <span>{errors.identifier}</span>}
         </div>
 
@@ -91,11 +95,12 @@ class Login extends Component {
             name="password"
             onChange={this.onChange}
             type="password"
-            value={password} />
+            value={password}
+          />
           {errors.password && <span>{errors.password}</span>}
         </div>
         <div>
-          <button disabled={isSubmitting} onClick={this.onSubmit}>Login</button>
+          <button type="button" disabled={isSubmitting} onClick={this.onSubmit}>Login</button>
         </div>
       </div>
     );
