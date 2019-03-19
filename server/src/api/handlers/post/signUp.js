@@ -89,7 +89,7 @@ const validateInput = (request, otherValidations) => {
   });
 };
 
-const createUser = request => (
+const signUp = request => (
   new Promise((resolve, reject) => {
     validateInput(request, validations).then(({ errors, isValid }) => {
       const hasErrors = Object.keys(errors).length;
@@ -115,4 +115,4 @@ const createUser = request => (
   })
 );
 
-export default createUser;
+export default signUp;
