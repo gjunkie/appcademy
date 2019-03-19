@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import actions from '../../actions';
 import profile from './profile';
 
-const mapStateToProps = () => ({
+const mapStateToProps = state => ({
+  user: state.user,
 });
 
 const mapDispatchToProps = dispatch => ({

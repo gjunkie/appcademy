@@ -3,8 +3,8 @@ import { func, object } from 'prop-types';
 
 class Profile extends Component {
   createGame = () => {
-    const { onCreateGame } = this.props;
-    onCreateGame();
+    const { onCreateGame, user } = this.props;
+    onCreateGame(user);
   }
 
   joinGame = (gameId) => {
@@ -19,27 +19,27 @@ class Profile extends Component {
 
   // good candidate for react hooks
   render() {
+    const { user } = this.props;
+    const { createGame, joinGame, setUserName } = this;
+
     return (
       <div className="profile">
         <h2>Profile</h2>
         <input
-          value={this.props.user.name}
-          onChange={this.setUserName} />
+          value={user.name}
+          onChange={setUserName}
+        />
         <div>
-          <button onClick={this.createGame}>Create Game</button>
-          <button onClick={this.joinGame}>Join Game</button>
+          <button onClick={createGame}>Create Game</button>
+          <button onClick={joinGame}>Join Game</button>
         </div>
       </div>
     );
   }
 }
 
-Profile.defaultProps = {
-  user: {},
-};
-
 Profile.propTypes = {
-  user: object,
+  user: object.isRequired,
   onCreateGame: func.isRequired,
   onJoinGame: func.isRequired,
   onSetUserName: func.isRequired,
