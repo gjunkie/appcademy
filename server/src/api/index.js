@@ -29,6 +29,14 @@ const plugin = {
         },
       },
       {
+        method: 'PATCH',
+        path: '/api/user',
+        config: {
+          auth: 'token',
+          handler: requestHandlers.patch.user,
+        },
+      },
+      {
         method: 'POST',
         path: '/api/auth',
         config: {

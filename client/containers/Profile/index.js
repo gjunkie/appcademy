@@ -8,14 +8,17 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getMyGames: userId => (
-    dispatch(actions.getMyGames(userId))
-  ),
   onCreateGame: userData => (
     dispatch(actions.createGame(userData))
   ),
+  onGetMyGames: userId => (
+    dispatch(actions.getMyGames(userId))
+  ),
   onJoinGame: userId => (
     dispatch(actions.joinGame(userId))
+  ),
+  onUpdateProfile: userData => (
+    dispatch(actions.updateUser(userData))
   ),
 });
 

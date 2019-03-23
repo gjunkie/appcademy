@@ -12,6 +12,7 @@ import loadUsers from './loadUsers';
 import login from './login';
 import logout from './logout';
 import removeUser from './removeUser';
+import updateUser from './updateUser';
 
 const actions = {
   createUser,
@@ -28,6 +29,7 @@ const actions = {
   login,
   logout,
   removeUser,
+  updateUser,
 };
 
 export default actions;

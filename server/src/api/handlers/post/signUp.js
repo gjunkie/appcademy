@@ -1,7 +1,5 @@
-// import Hapi from 'hapi';
 import Boom from 'boom';
 import bcrypt from 'bcrypt-nodejs';
-// import faker from 'faker';
 import Validator from 'validator';
 
 const SALT_ROUNDS = 10;

@@ -15,18 +15,6 @@ export default function validateInput(data) {
     errors.email = 'Email is invalid';
   }
 
-  if (!data.password.length) {
-    errors.password = 'Password is required';
-  }
-
-  if (!data.passwordConfirmation.length) {
-    errors.passwordConfirmation = 'Password confirmation is required';
-  }
-
-  if (!Validator.equals(data.password, data.passwordConfirmation)) {
-    errors.passwordConfirmation = 'Passwords must match';
-  }
-
   const hasErrors = Object.keys(errors).length;
 
   return {
