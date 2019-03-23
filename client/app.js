@@ -34,7 +34,7 @@ const App = () => (
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <App />,
+      <App />
     </Provider>,
     document.getElementById('root')
   );

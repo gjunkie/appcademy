@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import { func, object } from 'prop-types';
+import { array, func, object } from 'prop-types';
 
 class Profile extends Component {
+  componentDidMount() {
+    const { getMyGames, user } = this.props;
+    getMyGames(user.id);
+  }
+
   createGame = () => {
     const { onCreateGame, user } = this.props;
     onCreateGame(user);
@@ -17,7 +22,13 @@ class Profile extends Component {
     onSetUserName(userName);
   }
 
-  // good candidate for react hooks
+  renderMyGames = () => {
+    const { myGames } = this.props;
+    return myGames.map(game => (
+      <li>{game.id}</li>
+    ));
+  }
+
   render() {
     const { user } = this.props;
     const { createGame, joinGame, setUserName } = this;
@@ -30,15 +41,23 @@ class Profile extends Component {
           onChange={setUserName}
         />
         <div>
-          <button onClick={createGame}>Create Game</button>
-          <button onClick={joinGame}>Join Game</button>
+          <button type="button" onClick={createGame}>Create Game</button>
+          <button type="button" onClick={joinGame}>Join Game</button>
         </div>
+
+        { this.renderMyGames() }
       </div>
     );
   }
 }
 
+Profile.defaultProps = {
+  myGames: [],
+};
+
 Profile.propTypes = {
+  getMyGames: func.isRequired,
+  myGames: array,
   user: object.isRequired,
   onCreateGame: func.isRequired,
   onJoinGame: func.isRequired,

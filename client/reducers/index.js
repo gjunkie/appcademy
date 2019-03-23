@@ -18,6 +18,12 @@ export default (state = {}, action) => {
         user: action.user,
       };
 
+    case 'LOAD_MY_GAMES':
+      return {
+        ...state,
+        myGames: action.myGames,
+      };
+
     case 'LOAD_USER':
       return {
         ...state,

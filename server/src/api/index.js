@@ -1,10 +1,17 @@
 // list your api endpoints with their handlers here.
-// look at ./handlers/get and ./handlers/post to see sample handlers.
 import requestHandlers from './handlers';
 
 const plugin = {
   register: (server) => {
     server.route([
+      {
+        method: 'GET',
+        path: '/api/mygames',
+        config: {
+          auth: 'token',
+          handler: requestHandlers.get.games,
+        },
+      },
       {
         method: 'GET',
         path: '/api/getuser',

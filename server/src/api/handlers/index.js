@@ -4,6 +4,7 @@ import postHandlers from './post';
 
 module.exports = {
   get: {
+    games: getHandlers.games,
     user: getHandlers.user,
     users: getHandlers.users,
   },
