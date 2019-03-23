@@ -18,6 +18,12 @@ export default (state = {}, action) => {
         user: action.user,
       };
 
+    case 'LOAD_GAME':
+      return {
+        ...state,
+        myGames: (state.myGames || []).concat(action.game),
+      };
+
     case 'LOAD_MY_GAMES':
       return {
         ...state,

@@ -11,6 +11,7 @@ const getGames = request => (
         const lintedGames = games.map(game => ({
           creator: game.creator,
           id: game._id,
+          inviteCode: game.inviteCode,
           name: game.name,
           players: game.players,
         }));

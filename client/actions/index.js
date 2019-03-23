@@ -5,6 +5,7 @@ import getMyGames from './getMyGames';
 import getUser from './getUser';
 import getUsers from './getUsers';
 import setCurrentUser from './setCurrentUser';
+import loadGame from './loadGame';
 import loadMyGames from './loadMyGames';
 import loadUser from './loadUser';
 import loadUsers from './loadUsers';
@@ -20,6 +21,7 @@ const actions = {
   getUser,
   getUsers,
   setCurrentUser,
+  loadGame,
   loadMyGames,
   loadUser,
   loadUsers,

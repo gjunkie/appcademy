@@ -15,7 +15,11 @@ const generateGame = (creator, request) => (
         error.output.payload.info = error;
         resolve(error);
       }
-      resolve(newGame);
+      newGame.players.push(creator._id);
+
+      newGame.save(() => {
+        resolve(newGame);
+      });
     });
   })
 );
@@ -30,7 +34,13 @@ const createGame = request => (
     UserModel.findById(request.payload.id)
       .exec((err, creator) => {
         generateGame(creator, request).then((game) => {
-          resolve(game);
+          const lintedGame = {
+            id: game._id,
+            inviteCode: game.inviteCode,
+            name: game.name,
+            players: game.players,
+          };
+          resolve(lintedGame);
         });
       });
   })
