@@ -1,42 +1,51 @@
-import React, { Component } from 'react';
-import { array, func, object } from 'prop-types';
+import React from 'react';
+import {
+  array,
+  bool,
+  func,
+  object,
+} from 'prop-types';
 
-class Home extends Component {
-  componentDidMount() {
-    const { onGetMyGames, user } = this.props;
-    // this needs to be behind auth
-    // onGetMyGames(user.id);
+const Home = (props) => {
+  const {
+    isAuthenticated,
+    myGames,
+    onGetMyGames,
+    user,
+  } = props;
+
+  if (isAuthenticated) {
+    onGetMyGames(user.id);
   }
 
-  renderMyGames = () => {
-    const { myGames } = this.props;
-    return myGames.map(game => (
+  const renderMyGames = () => (
+    myGames.map(game => (
       <li key={game.id}>
         <span>{game.id}</span>
         --
         <span>{game.inviteCode}</span>
       </li>
-    ));
-  }
+    ))
+  );
 
-  render() {
-    return (
-      <div className="profile">
-        <h2>Home</h2>
-        { this.renderMyGames() }
-      </div>
-    );
-  }
-}
+  return (
+    <div className="profile">
+      <h2>Home</h2>
+      { renderMyGames() }
+    </div>
+  );
+};
 
 Home.defaultProps = {
   myGames: [],
+  user: {},
 };
 
 Home.propTypes = {
+  isAuthenticated: bool.isRequired,
   myGames: array,
   onGetMyGames: func.isRequired,
-  user: object.isRequired,
+  user: object,
 };
 
 export default Home;

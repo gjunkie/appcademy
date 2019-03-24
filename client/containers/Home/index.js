@@ -3,6 +3,7 @@ import actions from '../../actions';
 import Home from './home';
 
 const mapStateToProps = state => ({
+  isAuthenticated: !!state.isAuthenticated,
   myGames: state.myGames || [],
   user: state.user,
 });
