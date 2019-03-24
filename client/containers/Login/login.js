@@ -1,55 +1,28 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { bool, func } from 'prop-types';
 
 import validateInput from '../../helpers/validators/login';
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
+const Login = (props) => {
+  const [identifier, setIdentifier] = useState('');
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [password, setPassword] = useState('');
+  const { isAuthenticated } = props;
 
-    this.state = {
-      identifier: '',
-      errors: {},
-      isSubmitting: false,
-      password: '',
-    };
-  }
+  const isValid = () => {
+    const validations = validateInput(identifier, password);
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  onSubmit = (e) => {
-    e.preventDefault();
-    if (!this.isValid()) return;
-
-    this.setState({
-      errors: {},
-      isSubmitting: true,
-    });
-
-    this.login().then((err) => {
-      this.setState({
-        errors: err.response.data.info,
-        isSubmitting: false,
-      });
-    });
-  }
-
-  isValid = () => {
-    const { errors, isValid } = validateInput(this.state);
-
-    if (!isValid) {
-      this.setState({ errors });
+    if (!validations.isValid) {
+      setErrors(validations.errors);
     }
 
-    return isValid;
-  }
+    return validations.isValid;
+  };
 
-  login = () => {
-    const { onLogin } = this.props;
-    const { identifier, password } = this.state;
+  const login = () => {
+    const { onLogin } = props;
 
     const userCreds = {
       identifier,
@@ -57,35 +30,38 @@ class Login extends Component {
     };
 
     return onLogin(userCreds);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (!isValid()) return;
+
+    setErrors({});
+    setIsSubmitting(true);
+
+    login().then((err) => {
+      setErrors(err.response.data.info);
+      setIsSubmitting(false);
+    });
+  };
+
+
+  if (isAuthenticated) {
+    return (
+      <Redirect to="/" />
+    );
   }
 
-  // good candidate for react hooks
-  render() {
-    const {
-      errors,
-      identifier,
-      isSubmitting,
-      password,
-    } = this.state;
-
-    const {
-      isAuthenticated,
-    } = this.props;
-
-    if (isAuthenticated) {
-      return (
-        <Redirect to="/" />
-      );
-    }
-    return (
-      <div className="profile">
-        <h2>Login</h2>
+  return (
+    <div className="profile">
+      <h2>Login</h2>
+      <form onSubmit={onSubmit}>
         <div>
           <label htmlFor="identifier">Username or Email</label>
           <input
             id="identifier"
             name="identifier"
-            onChange={this.onChange}
+            onChange={e => setIdentifier(e.target.value)}
             type="text"
             value={identifier}
           />
@@ -97,19 +73,20 @@ class Login extends Component {
           <input
             id="password"
             name="password"
-            onChange={this.onChange}
+            onChange={e => setPassword(e.target.value)}
             type="password"
             value={password}
           />
           {errors.password && <span>{errors.password}</span>}
         </div>
         <div>
-          <button type="button" disabled={isSubmitting} onClick={this.onSubmit}>Login</button>
+          <button disabled={isSubmitting}>Login</button>
         </div>
-      </div>
-    );
-  }
-}
+      </form>
+    </div>
+  );
+};
+
 
 Login.propTypes = {
   isAuthenticated: bool.isRequired,

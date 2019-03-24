@@ -3,7 +3,7 @@ import actions from '../../actions';
 import Login from './login';
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.isAuthenticated,
+  isAuthenticated: !!state.isAuthenticated,
   users: state.users || [],
 });
 

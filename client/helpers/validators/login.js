@@ -1,14 +1,12 @@
-import Validator from 'validator';
+export default function validateInput(identifier, password) {
+  const errors = {};
 
-export default function validateInput(data) {
-  let errors = {};
-
-  if (!data.identifier.length) {
+  if (!identifier.length) {
     errors.identifier = 'This field is required';
   }
 
-  if (!data.password.length) {
-    errors.password = 'This field is required';
+  if (!password.length) {
+    errors.password = 'Password is required';
   }
 
   const hasErrors = Object.keys(errors).length;
@@ -16,5 +14,5 @@ export default function validateInput(data) {
   return {
     errors,
     isValid: !hasErrors,
-  }
+  };
 }
