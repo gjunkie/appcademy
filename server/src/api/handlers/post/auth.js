@@ -46,12 +46,13 @@ const findUser = request => (
  * Creates a user with the payload sent in the request.
  */
 const auth = request => (
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     findUser(request).then((data) => {
       if (data.errors || !data.user) {
         const error = Boom.unauthorized('User not found', data.errors);
         error.output.payload.info = data.errors;
         resolve(error);
+        return;
       }
 
       bcrypt.compare(request.payload.password, data.user.password, (err, res) => {

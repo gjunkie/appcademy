@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Game from '../Game';
 import Home from '../Home';
 import Vote from '../Vote';
 import Profile from '../Profile';
@@ -22,6 +23,7 @@ const BaseApp = () => (
       <Route path="/profile" component={Profile} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={SignUp} />
+      <Route path="/game/:id" component={Game} />
     </Switch>
   </div>
 );

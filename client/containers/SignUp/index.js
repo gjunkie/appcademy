@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import actions from '../../actions';
 import signup from './signup';
 
-const mapStateToProps = () => ({
+const mapStateToProps = state => ({
+  isAuthenticated: state.isAuthenticated,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -4,7 +4,8 @@ import { array, func, object } from 'prop-types';
 class Home extends Component {
   componentDidMount() {
     const { onGetMyGames, user } = this.props;
-    onGetMyGames(user.id);
+    // this needs to be behind auth
+    // onGetMyGames(user.id);
   }
 
   renderMyGames = () => {

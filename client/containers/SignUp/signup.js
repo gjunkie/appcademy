@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { func } from 'prop-types';
+import { bool, func } from 'prop-types';
 
 import validateInput from '../../helpers/validators/signup';
 
@@ -58,6 +58,16 @@ class SignUp extends Component {
       isSubmitting,
     } = this.state;
 
+    const {
+      isAuthenticated,
+    } = this.props;
+
+    if (!isAuthenticated) {
+      return (
+        <Redirect to="/" />
+      );
+    }
+
     return (
       <form onSubmit={this.onSubmit}>
         <h2>Sign Up!</h2>
@@ -113,6 +123,7 @@ class SignUp extends Component {
 }
 
 SignUp.propTypes = {
+  isAuthenticated: bool.isRequired,
   onSignUp: func.isRequired,
 };
 

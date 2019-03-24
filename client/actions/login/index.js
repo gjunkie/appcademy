@@ -13,6 +13,7 @@ const login = payload => dispatch => (
 
       dispatch(setCurrentUser(jwt.decode(token)));
     })
+    .catch(err => err)
 );
 
 export default login;

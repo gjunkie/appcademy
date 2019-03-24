@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { func } from 'prop-types';
+import { bool, func } from 'prop-types';
 
 import validateInput from '../../helpers/validators/login';
 
@@ -29,17 +29,12 @@ class Login extends Component {
       isSubmitting: true,
     });
 
-    this.login().then(
-      () => (
-        <Redirect to="/" />
-      ),
-      (err) => {
-        this.setState({
-          errors: err.response.data.info,
-          isSubmitting: false,
-        });
-      },
-    );
+    this.login().then((err) => {
+      this.setState({
+        errors: err.response.data.info,
+        isSubmitting: false,
+      });
+    });
   }
 
   isValid = () => {
@@ -73,6 +68,15 @@ class Login extends Component {
       password,
     } = this.state;
 
+    const {
+      isAuthenticated,
+    } = this.props;
+
+    if (isAuthenticated) {
+      return (
+        <Redirect to="/" />
+      );
+    }
     return (
       <div className="profile">
         <h2>Login</h2>
@@ -108,6 +112,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
+  isAuthenticated: bool.isRequired,
   onLogin: func.isRequired,
 };
 

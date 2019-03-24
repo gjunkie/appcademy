@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { array, func, object } from 'prop-types';
 
 import validateInput from '../../helpers/validators/profile';
@@ -74,9 +75,11 @@ class Profile extends Component {
     const { myGames } = this.props;
     return myGames.map(game => (
       <li key={game.id}>
-        <span>{game.id}</span>
-        --
-        <span>{game.inviteCode}</span>
+        <Link to={`/game/${game.id}`}>
+          <span>{game.id}</span>
+          --
+          <span>{game.inviteCode}</span>
+        </Link>
       </li>
     ));
   }
