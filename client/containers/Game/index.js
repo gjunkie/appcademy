@@ -1,31 +1,13 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { bool } from 'prop-types';
+import { connect } from 'react-redux';
+import actions from '../../actions';
+import Game from './game';
 
-class Game extends Component {
-  render() {
-    const {
-      isAuthenticated,
-    } = this.props;
+const mapStateToProps = state => ({
+  isAuthenticated: !!state.isAuthenticated,
+});
 
-    if (!isAuthenticated) {
-      return (
-        <Redirect to="/" />
-      );
-    }
-    return (
-      <div className="profile">
-        Game
-      </div>
-    );
-  }
-}
+const mapDispatchToProps = dispatch => ({
+});
 
-Game.defaultProps = {
-};
-
-Game.propTypes = {
-  isAuthenticated: bool.isRequired,
-};
-
-export default Game;
+const ConnectedContainer = connect(mapStateToProps, mapDispatchToProps)(Game);
+export default ConnectedContainer;
