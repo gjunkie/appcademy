@@ -14,4 +14,3 @@ const mapDispatchToProps = dispatch => ({
 
 const ConnectedContainer = connect(mapStateToProps, mapDispatchToProps)(Login);
 export default ConnectedContainer;
-

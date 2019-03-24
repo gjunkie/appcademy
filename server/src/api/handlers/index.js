@@ -1,23 +1,24 @@
-import deleteHandlers from './delete';
-import getHandlers from './get';
-import patchHandlers from './patch';
-import postHandlers from './post';
+import DELETE from './delete';
+import GET from './get';
+import PATCH from './patch';
+import POST from './post';
 
 module.exports = {
   get: {
-    games: getHandlers.games,
-    user: getHandlers.user,
-    users: getHandlers.users,
+    games: GET.games,
+    user: GET.user,
+    users: GET.users,
   },
   patch: {
-    user: patchHandlers.user,
+    user: PATCH.user,
   },
   post: {
-    auth: postHandlers.auth,
-    game: postHandlers.game,
-    signUp: postHandlers.signUp,
+    auth: POST.auth,
+    game: POST.game,
+    joinGame: POST.joinGame,
+    signUp: POST.signUp,
   },
   delete: {
-    user: deleteHandlers.user,
+    user: DELETE.user,
   },
 };

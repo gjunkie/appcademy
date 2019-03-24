@@ -88,14 +88,14 @@ const validateInput = (request, otherValidations) => {
 };
 
 const signUp = request => (
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     validateInput(request, validations).then(({ errors, isValid }) => {
       const hasErrors = Object.keys(errors).length;
 
       if (!isValid || hasErrors) {
         const error = Boom.badRequest('Invalid query', errors);
         error.output.payload.info = errors;
-        return reject(error);
+        return resolve(error);
       }
 
       return bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {

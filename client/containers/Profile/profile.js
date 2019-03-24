@@ -10,7 +10,9 @@ class Profile extends Component {
     this.state = {
       email: props.user.email,
       errors: {},
+      inviteCode: '',
       isSubmitting: false,
+      isSubmittingInvite: false,
       user: props.user,
       username: props.user.username,
     };
@@ -37,9 +39,11 @@ class Profile extends Component {
     onCreateGame(user);
   }
 
-  joinGame = (gameId) => {
-    const { onJoinGame } = this.props;
-    onJoinGame(gameId);
+  onJoinGame = (e) => {
+    e.preventDefault();
+    const { onJoinGame, user } = this.props;
+    const { inviteCode } = this.state;
+    onJoinGame({ inviteCode, userId: user.id });
   }
 
   onChange = (e) => {
@@ -81,10 +85,12 @@ class Profile extends Component {
     const {
       email,
       errors,
+      inviteCode,
       isSubmitting,
+      isSubmittingInvite,
       username,
     } = this.state;
-    const { createGame, joinGame } = this;
+    const { createGame, onJoinGame } = this;
 
     return (
       <div className="profile">
@@ -115,8 +121,20 @@ class Profile extends Component {
 
         <div>
           <button type="button" onClick={createGame}>Create Game</button>
-          <button type="button" onClick={joinGame}>Join Game</button>
         </div>
+
+        <form onSubmit={onJoinGame}>
+          <div>
+            <input
+              id="inviteCode"
+              name="inviteCode"
+              value={inviteCode}
+              onChange={this.onChange}
+            />
+            {errors.inviteCode && <span>{errors.inviteCode}</span>}
+          </div>
+          <button disabled={isSubmittingInvite}>Join Game</button>
+        </form>
 
         { this.renderMyGames() }
       </div>

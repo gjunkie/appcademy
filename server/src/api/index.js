@@ -1,5 +1,5 @@
 // list your api endpoints with their handlers here.
-import requestHandlers from './handlers';
+import handlers from './handlers';
 
 const plugin = {
   register: (server) => {
@@ -9,7 +9,7 @@ const plugin = {
         path: '/api/mygames',
         config: {
           auth: 'token',
-          handler: requestHandlers.get.games,
+          handler: handlers.get.games,
         },
       },
       {
@@ -17,7 +17,7 @@ const plugin = {
         path: '/api/getuser',
         config: {
           auth: 'token',
-          handler: requestHandlers.get.user,
+          handler: handlers.get.user,
         },
       },
       {
@@ -25,7 +25,7 @@ const plugin = {
         path: '/api/getusers',
         config: {
           auth: 'token',
-          handler: requestHandlers.get.users,
+          handler: handlers.get.users,
         },
       },
       {
@@ -33,7 +33,7 @@ const plugin = {
         path: '/api/user',
         config: {
           auth: 'token',
-          handler: requestHandlers.patch.user,
+          handler: handlers.patch.user,
         },
       },
       {
@@ -41,7 +41,7 @@ const plugin = {
         path: '/api/auth',
         config: {
           auth: false,
-          handler: requestHandlers.post.auth,
+          handler: handlers.post.auth,
         },
       },
       {
@@ -49,7 +49,15 @@ const plugin = {
         path: '/api/game',
         config: {
           auth: 'token',
-          handler: requestHandlers.post.game,
+          handler: handlers.post.game,
+        },
+      },
+      {
+        method: 'POST',
+        path: '/api/joingame',
+        config: {
+          auth: 'token',
+          handler: handlers.post.joinGame,
         },
       },
       {
@@ -57,7 +65,7 @@ const plugin = {
         path: '/api/signup',
         config: {
           auth: false,
-          handler: requestHandlers.post.signUp,
+          handler: handlers.post.signUp,
         },
       },
       {
@@ -65,7 +73,7 @@ const plugin = {
         path: '/api/deleteuser/{id}',
         config: {
           auth: 'token',
-          handler: requestHandlers.delete.user,
+          handler: handlers.delete.user,
         },
       },
     ]);

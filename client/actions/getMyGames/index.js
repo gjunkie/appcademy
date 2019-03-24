@@ -4,9 +4,9 @@ import loadMyGames from '../loadMyGames';
 export const getMyGames = userId => dispatch => (
   axios
     .get('/api/mygames', { params: { userId } })
-    .then((response) => {
-      dispatch(loadMyGames(response.data));
-    }).catch((err) => {
+    .then(res => (
+      dispatch(loadMyGames(res.data))
+    )).catch((err) => {
       console.log(err); // eslint-disable-line no-console
     })
 );

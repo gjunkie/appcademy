@@ -10,6 +10,7 @@ const gameSchema = mongoose.Schema({
     ref: 'User',
   },
   inviteCode: { type: String, required: true },
+  name: String,
   players: [{
     type: ObjectId,
     ref: 'User',
