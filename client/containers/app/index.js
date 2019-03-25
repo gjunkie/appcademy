@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Admin from '../Admin';
 import Game from '../Game';
 import Home from '../Home';
 import Profile from '../Profile';
@@ -18,6 +19,7 @@ const BaseApp = () => (
 
     <Switch>
       <Route path="/" exact component={Home} />
+      <Route path="/admin" exact component={Admin} />
       <Route path="/profile" component={Profile} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={SignUp} />
