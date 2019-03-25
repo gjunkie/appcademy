@@ -5,6 +5,7 @@ import getMyGames from './getMyGames';
 import getUser from './getUser';
 import getUsers from './getUsers';
 import joinGame from './joinGame';
+import loadSearchResults from './loadSearchResults';
 import loadGame from './loadGame';
 import loadMyGames from './loadMyGames';
 import loadUser from './loadUser';
@@ -12,6 +13,7 @@ import loadUsers from './loadUsers';
 import login from './login';
 import logout from './logout';
 import removeUser from './removeUser';
+import searchFilm from './searchFilm';
 import setCurrentUser from './setCurrentUser';
 import updateUser from './updateUser';
 
@@ -23,6 +25,7 @@ const actions = {
   getUser,
   getUsers,
   joinGame,
+  loadSearchResults,
   loadGame,
   loadMyGames,
   loadUser,
@@ -30,6 +33,7 @@ const actions = {
   login,
   logout,
   removeUser,
+  searchFilm,
   setCurrentUser,
   updateUser,
 };
