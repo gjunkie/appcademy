@@ -24,8 +24,6 @@ class Navigation extends React.Component {
     const userLinks = (
       <ul className="nav">
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/example/">Example Route</Link></li>
-        <li><Link to="/vote/">Vote</Link></li>
         <li><Link to="/profile/">Profile</Link></li>
         <li><a href="#" onClick={this.logout}>Logout</a></li>
       </ul>

@@ -9,7 +9,8 @@ const Login = (props) => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [password, setPassword] = useState('');
-  const { isAuthenticated } = props;
+
+  const { isAuthenticated, onLogin } = props;
 
   const isValid = () => {
     const validations = validateInput(identifier, password);
@@ -22,8 +23,6 @@ const Login = (props) => {
   };
 
   const login = () => {
-    const { onLogin } = props;
-
     const userCreds = {
       identifier,
       password,
