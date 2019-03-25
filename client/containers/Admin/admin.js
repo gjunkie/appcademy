@@ -12,6 +12,12 @@ class Admin extends Component {
     title: '',
   }
 
+  onKeyUp = (e) => {
+    if (e.keyCode === 13) {
+      this.onSearch();
+    }
+  }
+
   onSearch = () => {
     const { onSearchFilm } = this.props;
     const { title } = this.state;
@@ -21,13 +27,16 @@ class Admin extends Component {
 
   renderResults = () => {
     const { searchResults } = this.props;
-    return searchResults.map(film => (
-      <li key={film.id}>
-        <span>
-          {film.title} ({film.release_date})
-        </span>
-      </li>
-    ));
+    return searchResults.map((film) => {
+      const imageUrl = `http://image.tmdb.org/t/p/w92//${film.poster_path}`;
+      return (
+        <li key={film.id}>
+          <img alt={film.title} src={imageUrl} />
+          <h4>{film.title} ({film.release_date})</h4>
+          <p>{film.overview}</p>
+        </li>
+      );
+    });
   }
 
   setMovieTitle = (e) => {
@@ -50,6 +59,7 @@ class Admin extends Component {
             id="title"
             name="title"
             onChange={this.setMovieTitle}
+            onKeyUp={this.onKeyUp}
             type="text"
             value={title}
           />
