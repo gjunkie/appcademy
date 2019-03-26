@@ -45,7 +45,6 @@ const Login = ({
     });
   };
 
-
   if (isAuthenticated) {
     return (
       <Redirect to="/" />
@@ -55,33 +54,35 @@ const Login = ({
   return (
     <div className="profile">
       <h2>Login</h2>
-      <form onSubmit={onSubmit}>
+      <form>
         <div>
-          <label htmlFor="identifier">Username or Email</label>
-          <input
-            id="identifier"
-            name="identifier"
-            onChange={e => setIdentifier(e.target.value)}
-            type="text"
-            value={identifier}
-          />
+          <label htmlFor="identifier">
+            Username or Email
+            <input
+              id="identifier"
+              name="identifier"
+              onChange={e => setIdentifier(e.target.value)}
+              type="text"
+              value={identifier}
+            />
+          </label>
           {errors.identifier && <span>{errors.identifier}</span>}
         </div>
 
         <div>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            onChange={e => setPassword(e.target.value)}
-            type="password"
-            value={password}
-          />
+          <label htmlFor="password">
+            Password
+            <input
+              id="password"
+              name="password"
+              onChange={e => setPassword(e.target.value)}
+              type="password"
+              value={password}
+            />
+          </label>
           {errors.password && <span>{errors.password}</span>}
         </div>
-        <div>
-          <button disabled={isSubmitting}>Login</button>
-        </div>
+        <button type="button" onClick={onSubmit} disabled={isSubmitting}>Login</button>
       </form>
     </div>
   );

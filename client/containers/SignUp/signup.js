@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { bool, func } from 'prop-types';
+import { func } from 'prop-types';
 
 import validateInput from '../../helpers/validators/signup';
 
@@ -58,59 +58,67 @@ const SignUp = ({
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <div>
       <h2>Sign Up!</h2>
+      <form>
+        <div>
+          <label htmlFor="username">
+            Username
+            <input
+              id="username"
+              name="username"
+              onChange={event => setUsername(event.target.value)}
+              type="text"
+              value={username}
+            />
+          </label>
+          {formErrors.username && <span>{formErrors.username}</span>}
+        </div>
 
-      <div>
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          name="username"
-          onChange={event => setUsername(event.target.value)}
-          type="text"
-          value={username}
-        />
-        {formErrors.username && <span>{formErrors.username}</span>}
-      </div>
+        <div>
+          <label htmlFor="email">
+            Email
+            <input
+              id="email"
+              name="email"
+              onChange={event => setEmail(event.target.value)}
+              type="text"
+              value={email}
+            />
+          </label>
+          {formErrors.email && <span>{formErrors.email}</span>}
+        </div>
 
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          onChange={event => setEmail(event.target.value)}
-          type="text"
-          value={email}
-        />
-        {formErrors.email && <span>{formErrors.email}</span>}
-      </div>
+        <div>
+          <label htmlFor="password">
+            Password
+            <input
+              id="password"
+              name="password"
+              onChange={event => setPassword(event.target.value)}
+              type="password"
+              value={password}
+            />
+          </label>
+          {formErrors.password && <span>{formErrors.password}</span>}
+        </div>
 
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          onChange={event => setPassword(event.target.value)}
-          type="password"
-          value={password}
-        />
-        {formErrors.password && <span>{formErrors.password}</span>}
-      </div>
-
-      <div>
-        <label htmlFor="passwordConfirmation">Confirm Password</label>
-        <input
-          id="passwordConfirmation"
-          name="passwordConfirmation"
-          onChange={event => setPasswordConfirmation(event.target.value)}
-          type="password"
-          value={passwordConfirmation}
-        />
-        {formErrors.passwordConfirmation && <span>{formErrors.passwordConfirmation}</span>}
-      </div>
-
-      <button disabled={isSubmitting}>Sign Up</button>
-    </form>
+        <div>
+          <label htmlFor="passwordConfirmation">
+            Confirm Password
+            <input
+              id="passwordConfirmation"
+              name="passwordConfirmation"
+              onChange={event => setPasswordConfirmation(event.target.value)}
+              type="password"
+              value={passwordConfirmation}
+            />
+          </label>
+          {formErrors.passwordConfirmation && <span>{formErrors.passwordConfirmation}</span>}
+        </div>
+        <button type="button" onClick={onSubmit} disabled={isSubmitting}>Sign Up</button>
+      </form>
+    </div>
   );
 };
 

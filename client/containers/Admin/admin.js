@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { bool, func } from 'prop-types';
+import { bool } from 'prop-types';
 
 const Admin = ({
   isAuthenticated,
@@ -41,7 +41,9 @@ const Admin = ({
           <img alt={film.title} src={imageUrl} />
           <h4>
             {film.title}
-            ({film.release_date})
+            (
+            {film.release_date}
+            )
           </h4>
           <p>{film.overview}</p>
         </li>
@@ -59,16 +61,18 @@ const Admin = ({
     <div className="profile">
       <h2>Admin</h2>
       <div>
-        <label htmlFor="identifier">Movie Title</label>
-        <input
-          id="title"
-          name="title"
-          onChange={event => setTitle(event.target.value)}
-          onKeyUp={onKeyUp}
-          type="text"
-          value={title}
-        />
-        <button disabled={isSubmitting || !title.length} onClick={onSearch}>Search</button>
+        <label htmlFor="identifier">
+          Movie Title
+          <input
+            id="title"
+            name="title"
+            onChange={event => setTitle(event.target.value)}
+            onKeyUp={onKeyUp}
+            type="text"
+            value={title}
+          />
+        </label>
+        <button type="button" disabled={isSubmitting || !title.length} onClick={onSearch}>Search</button>
       </div>
       { renderResults() }
     </div>
