@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import {
-  array,
-  bool,
-  func,
-} from 'prop-types';
+import axios from 'axios';
+import { bool, func } from 'prop-types';
 
 const Admin = ({
   isAuthenticated,
-  onSearchFilm,
-  searchResults,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [title, setTitle] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   const onSearch = () => {
+    const apiKey = 'fc177c93d4721138d6300feac0052bb1';
+    const baseUrl = 'https://api.themoviedb.org/3/search/movie';
+    const lang = 'en-US';
+    const page = '1';
+    const urlSafeTitle = encodeURIComponent(title);
+
     setIsSubmitting(true);
-    onSearchFilm(title).then(() => setIsSubmitting(false));
+
+    axios.get(`${baseUrl}?api_key=${apiKey}&${lang}&query=${urlSafeTitle}&${page}`)
+      .then((res) => {
+        setSearchResults(res.data.results);
+        setIsSubmitting(false);
+      })
+      .catch(err => err);
   };
 
   const onKeyUp = (e) => {
@@ -67,14 +75,8 @@ const Admin = ({
   );
 };
 
-Admin.defaultProps = {
-  searchResults: [],
-};
-
 Admin.propTypes = {
   isAuthenticated: bool.isRequired,
-  onSearchFilm: func.isRequired,
-  searchResults: array,
 };
 
 export default Admin;
