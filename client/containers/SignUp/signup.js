@@ -1,129 +1,120 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { bool, func } from 'prop-types';
 
 import validateInput from '../../helpers/validators/signup';
 
-class SignUp extends Component {
-  constructor(props) {
-    super(props);
+const SignUp = ({
+  onSignUp,
+}) => {
+  const [formErrors, setFormErrors] = useState({});
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    this.state = {
-      email: '',
-      errors: {},
-      isSubmitting: false,
-      password: '',
-      passwordConfirmation: '',
-      username: '',
-    };
-  }
-
-  isValid = () => {
-    const { errors, isValid } = validateInput(this.state);
+  const isFormValid = () => {
+    const { errors, isValid } = validateInput({
+      username,
+      email,
+      password,
+      passwordConfirmation,
+    });
 
     if (!isValid) {
-      this.setState({ errors });
+      setFormErrors(errors);
     }
 
     return isValid;
-  }
+  };
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    if (!this.isValid()) return;
+    if (!isFormValid()) return;
 
-    this.setState({
-      errors: {},
-      isSubmitting: true,
-    });
+    setFormErrors({});
+    setIsSubmitting(true);
 
-    this.props.onSignUp(this.state).then(() => {
-      return <Redirect to="/" />
+    onSignUp({
+      username,
+      email,
+      password,
+      passwordConfirmation,
+    }).then(() => {
+      setFormSubmitted(true);
     },
     (err) => {
-      this.setState({
-        errors: err.response.data.info,
-        isSubmitting: false,
-      });
+      setFormErrors(err.response.data.info);
+      setIsSubmitting(false);
     });
-  }
+  };
 
-  render() {
-    const {
-      errors,
-      isSubmitting,
-    } = this.state;
-
-    const {
-      isAuthenticated,
-    } = this.props;
-
-    if (!isAuthenticated) {
-      return (
-        <Redirect to="/" />
-      );
-    }
-
+  if (formSubmitted) {
     return (
-      <form onSubmit={this.onSubmit}>
-        <h2>Sign Up!</h2>
-
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            name="username"
-            onChange={this.onChange}
-            type="text"
-            value={this.state.username} />
-          {errors.username && <span>{errors.username}</span>}
-        </div>
-
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            onChange={this.onChange}
-            type="text"
-            value={this.state.email} />
-          {errors.email && <span>{errors.email}</span>}
-        </div>
-
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            onChange={this.onChange}
-            type="password"
-            value={this.state.password} />
-          {errors.password && <span>{errors.password}</span>}
-        </div>
-
-        <div>
-          <label htmlFor="passwordConfirmation">Confirm Password</label>
-          <input
-            id="passwordConfirmation"
-            name="passwordConfirmation"
-            onChange={this.onChange}
-            type="password"
-            value={this.state.passwordConfirmation} />
-          {errors.passwordConfirmation && <span>{errors.passwordConfirmation}</span>}
-        </div>
-
-        <button disabled={isSubmitting}>Sign Up</button>
-      </form>
+      <Redirect to="/login" />
     );
   }
-}
+
+  return (
+    <form onSubmit={onSubmit}>
+      <h2>Sign Up!</h2>
+
+      <div>
+        <label htmlFor="username">Username</label>
+        <input
+          id="username"
+          name="username"
+          onChange={event => setUsername(event.target.value)}
+          type="text"
+          value={username}
+        />
+        {formErrors.username && <span>{formErrors.username}</span>}
+      </div>
+
+      <div>
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          onChange={event => setEmail(event.target.value)}
+          type="text"
+          value={email}
+        />
+        {formErrors.email && <span>{formErrors.email}</span>}
+      </div>
+
+      <div>
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          onChange={event => setPassword(event.target.value)}
+          type="password"
+          value={password}
+        />
+        {formErrors.password && <span>{formErrors.password}</span>}
+      </div>
+
+      <div>
+        <label htmlFor="passwordConfirmation">Confirm Password</label>
+        <input
+          id="passwordConfirmation"
+          name="passwordConfirmation"
+          onChange={event => setPasswordConfirmation(event.target.value)}
+          type="password"
+          value={passwordConfirmation}
+        />
+        {formErrors.passwordConfirmation && <span>{formErrors.passwordConfirmation}</span>}
+      </div>
+
+      <button disabled={isSubmitting}>Sign Up</button>
+    </form>
+  );
+};
 
 SignUp.propTypes = {
-  isAuthenticated: bool.isRequired,
   onSignUp: func.isRequired,
 };
 
