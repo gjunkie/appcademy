@@ -1,67 +1,55 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { array, func, object } from 'prop-types';
 
 import validateInput from '../../helpers/validators/profile';
 
-class Profile extends Component {
-  constructor(props) {
-    super(props);
+const Profile = ({
+  myGames,
+  onCreateGame,
+  onGetMyGames,
+  onJoinGame,
+  onUpdateProfile,
+  user,
+}) => {
+  const [formErrors, setFormErrors] = useState({});
+  const [email, setEmail] = useState(user.email);
+  const [username, setUsername] = useState(user.username);
+  const [inviteCode, setInviteCode] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmittingInvite, setIsSubmittingInvite] = useState(false);
 
-    this.state = {
-      email: props.user.email,
-      errors: {},
-      inviteCode: '',
-      isSubmitting: false,
-      isSubmittingInvite: false,
-      user: props.user,
-      username: props.user.username,
-    };
-  }
-
-  componentDidMount() {
-    const { onGetMyGames, user } = this.props;
+  useEffect(() => {
     onGetMyGames(user.id);
-  }
+  }, [myGames.length]);
 
-  isValid = () => {
-    const { user } = this.state;
+  const isFormValid = () => {
     const { errors, isValid } = validateInput(user);
 
     if (!isValid) {
-      this.setState({ errors });
+      setFormErrors(errors);
     }
 
     return isValid;
-  }
+  };
 
-  createGame = () => {
-    const { onCreateGame, user } = this.props;
+  const createGame = () => {
     onCreateGame(user);
-  }
+  };
 
-  onJoinGame = (e) => {
+  const joinGame = (e) => {
     e.preventDefault();
-    const { onJoinGame, user } = this.props;
-    const { inviteCode } = this.state;
-    onJoinGame({ inviteCode, userId: user.id });
-  }
+    setIsSubmittingInvite(true);
+    onJoinGame({ inviteCode, userId: user.id }).then(() => setIsSubmittingInvite(false));
+  };
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  onSubmit = (e) => {
+  const updateProfile = (e) => {
     e.preventDefault();
-    if (!this.isValid()) return;
+    if (!isFormValid()) return;
 
-    this.setState({
-      errors: {},
-      isSubmitting: true,
-    });
+    setFormErrors({});
+    setIsSubmitting(true);
 
-    const { email, username } = this.state;
-    const { onUpdateProfile, user } = this.props;
     const updatedUser = {
       email,
       id: user.id,
@@ -69,11 +57,10 @@ class Profile extends Component {
     };
 
     onUpdateProfile(updatedUser);
-  }
+  };
 
-  renderMyGames = () => {
-    const { myGames } = this.props;
-    return myGames.map(game => (
+  const renderMyGames = () => (
+    myGames.map(game => (
       <li key={game.id}>
         <Link to={`/game/${game.id}`}>
           <span>{game.id}</span>
@@ -81,69 +68,57 @@ class Profile extends Component {
           <span>{game.inviteCode}</span>
         </Link>
       </li>
-    ));
-  }
+    ))
+  );
 
-  render() {
-    const {
-      email,
-      errors,
-      inviteCode,
-      isSubmitting,
-      isSubmittingInvite,
-      username,
-    } = this.state;
-    const { createGame, onJoinGame } = this;
-
-    return (
-      <div className="profile">
-        <h2>Profile</h2>
-        <form onSubmit={this.onSubmit}>
-          <div>
-            <label htmlFor="username">Username</label>
-            <input
-              id="username"
-              name="username"
-              value={username}
-              onChange={this.onChange}
-            />
-            {errors.username && <span>{errors.username}</span>}
-          </div>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              value={email}
-              onChange={this.onChange}
-            />
-            {errors.email && <span>{errors.email}</span>}
-          </div>
-          <button disabled={isSubmitting}>Update Profile</button>
-        </form>
-
+  return (
+    <div className="profile">
+      <h2>Profile</h2>
+      <form onSubmit={updateProfile}>
         <div>
-          <button type="button" onClick={createGame}>Create Game</button>
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            name="username"
+            value={username}
+            onChange={event => setUsername(event.target.value)}
+          />
+          {formErrors.username && <span>{formErrors.username}</span>}
         </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            value={email}
+            onChange={event => setEmail(event.target.value)}
+          />
+          {formErrors.email && <span>{formErrors.email}</span>}
+        </div>
+        <button disabled={isSubmitting}>Update Profile</button>
+      </form>
 
-        <form onSubmit={onJoinGame}>
-          <div>
-            <input
-              id="inviteCode"
-              name="inviteCode"
-              value={inviteCode}
-              onChange={this.onChange}
-            />
-            {errors.inviteCode && <span>{errors.inviteCode}</span>}
-          </div>
-          <button disabled={isSubmittingInvite}>Join Game</button>
-        </form>
-
-        { this.renderMyGames() }
+      <div>
+        <button type="button" onClick={createGame}>Create Game</button>
       </div>
-    );
-  }
-}
+
+      <form onSubmit={joinGame}>
+        <div>
+          <input
+            id="inviteCode"
+            name="inviteCode"
+            value={inviteCode}
+            onChange={event => setInviteCode(event.target.value)}
+          />
+          {formErrors.inviteCode && <span>{formErrors.inviteCode}</span>}
+        </div>
+        <button disabled={isSubmittingInvite}>Join Game</button>
+      </form>
+
+      { renderMyGames() }
+    </div>
+  );
+};
 
 Profile.defaultProps = {
   myGames: [],
