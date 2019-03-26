@@ -9,9 +9,8 @@ const page = '1';
 const searchFilm = title => (dispatch) => {
   const urlSafeTitle = encodeURIComponent(title);
 
-  axios.get(`${baseUrl}?api_key=${apiKey}&${lang}&query=${urlSafeTitle}&${page}`)
+  return axios.get(`${baseUrl}?api_key=${apiKey}&${lang}&query=${urlSafeTitle}&${page}`)
     .then((res) => {
-      console.log(res)
       dispatch(loadSearchResults(res.data.results));
     })
     .catch(err => err);
