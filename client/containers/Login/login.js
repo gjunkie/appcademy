@@ -4,13 +4,14 @@ import { bool, func } from 'prop-types';
 
 import validateInput from '../../helpers/validators/login';
 
-const Login = (props) => {
+const Login = ({
+  isAuthenticated,
+  onLogin,
+}) => {
   const [identifier, setIdentifier] = useState('');
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [password, setPassword] = useState('');
-
-  const { isAuthenticated, onLogin } = props;
 
   const isValid = () => {
     const validations = validateInput(identifier, password);
