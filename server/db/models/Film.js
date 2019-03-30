@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 // const { ObjectId } = mongoose.Schema.Types;
 
 const filmSchema = mongoose.Schema({
-  id: String,
+  filmId: String,
   creationDate: { type: Date, required: true, default: Date.now },
   nominations: [],
   overview: String,

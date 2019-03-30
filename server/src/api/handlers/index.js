@@ -11,6 +11,7 @@ module.exports = {
     users: GET.users,
   },
   patch: {
+    film: PATCH.film,
     user: PATCH.user,
   },
   post: {

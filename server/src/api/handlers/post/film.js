@@ -7,10 +7,11 @@ const createFilm = request => (
 
     const filmData = {
       ...film,
-      poster: film.poster_path,
+      filmId: film.id.toString(),
       nominations: [
         category.name,
       ],
+      poster: film.poster_path,
     };
 
     FilmModel.create(filmData, (err, newFilm) => {
@@ -40,12 +41,14 @@ const addFilm = request => (
           const error = Boom.badRequest('Invalid query');
           error.output.payload.info = error;
           resolve(error);
+          return;
         }
 
         if (film) {
           const error = Boom.badRequest('Film already exists');
           error.output.payload.info = error;
           resolve(error);
+          return;
         }
 
         createFilm(request).then((newFilm) => {

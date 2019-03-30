@@ -2,6 +2,8 @@
 // and export them here.
 import user from './user';
 
-module.exports = {
+const routes = {
   user,
 };
+
+export default routes;

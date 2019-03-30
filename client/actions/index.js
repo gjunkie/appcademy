@@ -17,6 +17,7 @@ import login from './login';
 import logout from './logout';
 import removeUser from './removeUser';
 import setCurrentUser from './setCurrentUser';
+import updateFilm from './updateFilm';
 import updateUser from './updateUser';
 
 const actions = {
@@ -39,6 +40,7 @@ const actions = {
   logout,
   removeUser,
   setCurrentUser,
+  updateFilm,
   updateUser,
 };
 

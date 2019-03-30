@@ -10,6 +10,7 @@ const Admin = ({
   isAuthenticated,
   nominees,
   onAddFilm,
+  onUpdateFilm,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [titles, setTitle] = useState({});
@@ -34,10 +35,6 @@ const Admin = ({
         setIsSubmitting(false);
       })
       .catch(err => err);
-  };
-
-  const addFilm = (film, category) => {
-    onAddFilm({ film, category });
   };
 
   const onKeyUp = (e, categoryName) => {
@@ -69,6 +66,19 @@ const Admin = ({
     );
   };
 
+  const renderAddButton = (film, category) => {
+    const nomineeIds = nominees.map(nominee => nominee.filmId);
+
+    if (nomineeIds.includes(film.id.toString())) {
+      return (
+        <button type="button" onClick={() => onUpdateFilm({film, category})}>Add Film</button>
+      );
+    }
+    return (
+      <button type="button" onClick={() => onAddFilm({film, category})}>Add Film</button>
+    );
+  };
+
   const renderSearchResults = (category) => {
     if (!searchResults[category.name]) return null;
     return searchResults[category.name].map((film) => {
@@ -83,7 +93,7 @@ const Admin = ({
             )
           </h4>
           <p>{film.overview}</p>
-          <button type="button" onClick={() => addFilm(film, category)}>Add Film</button>
+          { renderAddButton(film, category) }
         </li>
       );
     });
@@ -148,6 +158,7 @@ Admin.propTypes = {
   isAuthenticated: bool.isRequired,
   nominees: array,
   onAddFilm: func.isRequired,
+  onUpdateFilm: func.isRequired,
 };
 
 export default Admin;

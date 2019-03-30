@@ -5,9 +5,11 @@ import nominees from './nominees';
 import user from './user';
 import users from './users';
 
-module.exports = {
+const routes = {
   games,
   nominees,
   user,
   users,
 };
+
+export default routes;

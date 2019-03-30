@@ -14,6 +14,9 @@ const mapDispatchToProps = dispatch => ({
   onAddFilm: data => (
     dispatch(actions.addFilm(data))
   ),
+  onUpdateFilm: data => (
+    dispatch(actions.updateFilm(data))
+  ),
 });
 
 const ConnectedContainer = connect(mapStateToProps, mapDispatchToProps)(admin);

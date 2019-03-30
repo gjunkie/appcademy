@@ -38,6 +38,14 @@ const plugin = {
       },
       {
         method: 'PATCH',
+        path: '/api/film',
+        config: {
+          auth: 'token',
+          handler: handlers.patch.film,
+        },
+      },
+      {
+        method: 'PATCH',
         path: '/api/user',
         config: {
           auth: 'token',

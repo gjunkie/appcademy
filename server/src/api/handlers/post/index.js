@@ -6,10 +6,12 @@ import game from './game';
 import joinGame from './joinGame';
 import signUp from './signUp';
 
-module.exports = {
+const routes = {
   auth,
   film,
   game,
   joinGame,
   signUp,
 };
+
+export default routes;
