@@ -15,6 +15,7 @@ module.exports = {
   post: {
     auth: POST.auth,
     game: POST.game,
+    film: POST.film,
     joinGame: POST.joinGame,
     signUp: POST.signUp,
   },

@@ -46,6 +46,14 @@ const plugin = {
       },
       {
         method: 'POST',
+        path: '/api/film',
+        config: {
+          auth: 'token',
+          handler: handlers.post.film,
+        },
+      },
+      {
+        method: 'POST',
         path: '/api/game',
         config: {
           auth: 'token',

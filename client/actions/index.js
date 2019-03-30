@@ -1,3 +1,4 @@
+import addFilm from './addFilm';
 import createUser from './createUser';
 import createGame from './createGame';
 import deleteUser from './deleteUser';
@@ -16,6 +17,7 @@ import setCurrentUser from './setCurrentUser';
 import updateUser from './updateUser';
 
 const actions = {
+  addFilm,
   createUser,
   createGame,
   deleteUser,
