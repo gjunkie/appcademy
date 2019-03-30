@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { array, bool, func } from 'prop-types';
 
-import categories from './categories2019';
+import categories from '../helpers/categories2019';
 
 const Admin = ({
   getNominees,
@@ -71,11 +71,11 @@ const Admin = ({
 
     if (nomineeIds.includes(film.id.toString())) {
       return (
-        <button type="button" onClick={() => onUpdateFilm({film, category})}>Add Film</button>
+        <button type="button" onClick={() => onUpdateFilm({ film, category })}>Add Film</button>
       );
     }
     return (
-      <button type="button" onClick={() => onAddFilm({film, category})}>Add Film</button>
+      <button type="button" onClick={() => onAddFilm({ film, category })}>Add Film</button>
     );
   };
 
