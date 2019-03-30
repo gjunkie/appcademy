@@ -30,6 +30,18 @@ export default (state = {}, action) => {
         myGames: action.myGames,
       };
 
+    case 'LOAD_NOMINEE':
+      return {
+        ...state,
+        nominees: (state.nominees || []).concat(action.nominee),
+      };
+
+    case 'LOAD_NOMINEES':
+      return {
+        ...state,
+        nominees: action.nominees,
+      };
+
     case 'LOAD_USER':
       return {
         ...state,

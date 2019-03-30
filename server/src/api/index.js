@@ -6,14 +6,6 @@ const plugin = {
     server.route([
       {
         method: 'GET',
-        path: '/api/mygames',
-        config: {
-          auth: 'token',
-          handler: handlers.get.games,
-        },
-      },
-      {
-        method: 'GET',
         path: '/api/getuser',
         config: {
           auth: 'token',
@@ -26,6 +18,22 @@ const plugin = {
         config: {
           auth: 'token',
           handler: handlers.get.users,
+        },
+      },
+      {
+        method: 'GET',
+        path: '/api/mygames',
+        config: {
+          auth: 'token',
+          handler: handlers.get.games,
+        },
+      },
+      {
+        method: 'GET',
+        path: '/api/nominees',
+        config: {
+          auth: 'token',
+          handler: handlers.get.nominees,
         },
       },
       {

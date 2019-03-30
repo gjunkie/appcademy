@@ -1,11 +1,11 @@
 import axios from 'axios';
-import loadMyGames from '../loadMyGames';
+import loadNominees from '../loadNominees';
 
-const getMyGames = userId => dispatch => (
+export const getMyGames = () => dispatch => (
   axios
-    .get('/api/mygames', { params: { userId } })
+    .get('/api/nominees')
     .then(res => (
-      dispatch(loadMyGames(res.data))
+      dispatch(loadNominees(res.data))
     )).catch((err) => {
       console.log(err); // eslint-disable-line no-console
     })

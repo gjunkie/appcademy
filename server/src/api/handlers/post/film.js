@@ -7,6 +7,7 @@ const createFilm = request => (
 
     const filmData = {
       ...film,
+      poster: film.poster_path,
       nominations: [
         category.name,
       ],

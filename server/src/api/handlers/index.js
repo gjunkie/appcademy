@@ -6,6 +6,7 @@ import POST from './post';
 module.exports = {
   get: {
     games: GET.games,
+    nominees: GET.nominees,
     user: GET.user,
     users: GET.users,
   },

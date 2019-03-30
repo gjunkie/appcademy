@@ -1,13 +1,13 @@
-import axios from 'axios'
+import axios from 'axios';
 import loadUsers from '../loadUsers';
 
-export const getUsers = options => dispatch => (
+const getUsers = () => dispatch => (
   axios.get('/api/getusers')
-  .then((response) => {
-    dispatch(loadUsers(response.data));
-  }).catch((err) => {
-    console.log(err)
-  })
+    .then((response) => {
+      dispatch(loadUsers(response.data));
+    }).catch((err) => {
+      console.log(err); // eslint-disable-line no-console
+    })
 );
 
 export default getUsers;

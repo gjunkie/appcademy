@@ -1,11 +1,10 @@
 import axios from 'axios';
-import loadGame from '../loadGame';
+import loadNominee from '../loadNominee';
 
 const addFilm = data => dispatch => (
-  axios.post('/api/film', data).then((response) => {
-    console.log(response)
-    dispatch(loadGame(response.data));
-  })
+  axios.post('/api/film', data).then(res => (
+    dispatch(loadNominee(res.data))
+  ))
 );
 
 export default addFilm;
