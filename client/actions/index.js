@@ -19,6 +19,7 @@ import logout from './logout';
 import removeUser from './removeUser';
 import search from './search';
 import setCurrentUser from './setCurrentUser';
+import updateArtist from './updateArtist';
 import updateFilm from './updateFilm';
 import updateUser from './updateUser';
 
@@ -44,6 +45,7 @@ const actions = {
   removeUser,
   search,
   setCurrentUser,
+  updateArtist,
   updateFilm,
   updateUser,
 };

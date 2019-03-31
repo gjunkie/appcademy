@@ -7,7 +7,7 @@ const createFilm = request => (
 
     const filmData = {
       ...film,
-      filmId: film.id.toString(),
+      entityId: film.id.toString(),
       nominations: [
         category.name,
       ],

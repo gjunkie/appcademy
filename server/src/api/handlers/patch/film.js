@@ -1,8 +1,5 @@
 import Boom from 'boom';
 
-/*
- * Creates a user with the payload sent in the request.
- */
 const updateFilm = request => (
   new Promise((resolve) => {
     const FilmModel = request.server.plugins.db.Film;

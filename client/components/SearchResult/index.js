@@ -8,15 +8,21 @@ const SearchResult = ({
   const imagePath = result.poster_path || result.profile_path;
   const imageUrl = `http://image.tmdb.org/t/p/w92//${imagePath}`;
 
+  const renderTitle = () => {
+    if (result.type === 'movie') {
+      return (
+        `${title} (${result.release_date})`
+      );
+    }
+    return (
+      title
+    );
+  };
+
   return (
     <Fragment>
       <img alt={title} src={imageUrl} />
-      <h4>
-        {title}
-        (
-        {result.release_date}
-        )
-      </h4>
+      <h4>{renderTitle()}</h4>
       <p>{result.overview}</p>
     </Fragment>
   );

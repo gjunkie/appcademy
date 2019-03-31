@@ -107,7 +107,7 @@ const Admin = ({
     if (!searchResults[category.name]) return null;
     return searchResults[category.name].map(result => (
       <li key={result.id}>
-        <SearchResult result={result} />
+        <SearchResult result={{ ...result, type: category.type }} />
         { renderAddButton(result, category) }
       </li>
     ));

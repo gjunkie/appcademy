@@ -11,6 +11,7 @@ module.exports = {
     users: GET.users,
   },
   patch: {
+    artist: PATCH.artist,
     film: PATCH.film,
     user: PATCH.user,
   },

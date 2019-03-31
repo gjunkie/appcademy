@@ -33,7 +33,9 @@ export default (state = {}, action) => {
     case 'LOAD_NOMINEE':
       return {
         ...state,
-        nominees: (state.nominees || []).concat(action.nominee),
+        nominees: (state.nominees || [])
+          .filter(nominee => nominee.entityId !== action.nominee.entityId)
+          .concat(action.nominee),
       };
 
     case 'LOAD_NOMINEES':

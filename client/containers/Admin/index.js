@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
   search: options => (
     dispatch(actions.search(options))
   ),
-  onUpdateArist: data => (
+  onUpdateArtist: data => (
     dispatch(actions.updateArtist(data))
   ),
   onUpdateFilm: data => (

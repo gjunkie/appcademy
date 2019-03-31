@@ -7,7 +7,7 @@ const createArtist = request => (
 
     const artistData = {
       ...artist,
-      artistId: artist.id.toString(),
+      entityId: artist.id.toString(),
       nominations: [
         category.name,
       ],
