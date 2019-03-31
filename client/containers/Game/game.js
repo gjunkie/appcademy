@@ -19,25 +19,35 @@ const Game = ({
     getNominees();
   }, []);
 
-  const renderNominee = nominee => (
-    <li key={nominee.filmId}>
-      <div>{nominee.title}</div>
-    </li>
-  );
+  const renderNominee = (category, nominee) => {
+    if (category.type === 'movie') {
+      return (
+        <li key={nominee.id}>
+          <div>{nominee.title}</div>
+        </li>
+      );
+    }
+    return (
+      <li key={nominee.id}>
+        <div>{nominee.name}</div>
+      </li>
+    );
+  };
 
-  const renderNominees = categoryNominees => (
+  const renderNominees = (category, categoryNominees) => (
     categoryNominees.map(nominee => (
-      renderNominee(nominee)
+      renderNominee(category, nominee)
     ))
   );
 
-  const nomineesForCategory = (categoryName) => {
-    const categoryNominees = nominees.filter(nominee => nominee.nominations.includes(categoryName));
+  const nomineesForCategory = (category) => {
+    const categoryNominees = nominees
+      .filter(nominee => nominee.nominations.includes(category.name));
     if (!categoryNominees) return null;
 
     return (
       <ul>
-        { renderNominees(categoryNominees) }
+        { renderNominees(category, categoryNominees) }
       </ul>
     );
   };
@@ -46,7 +56,7 @@ const Game = ({
     categories.map(category => (
       <li key={category.name} className="category">
         <h4>{category.name}</h4>
-        { nomineesForCategory(category.name) }
+        { nomineesForCategory(category) }
       </li>
     ))
   );

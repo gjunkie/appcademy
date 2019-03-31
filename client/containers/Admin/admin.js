@@ -68,9 +68,8 @@ const Admin = ({
   );
 
   const nomineesForCategory = (category) => {
-    const categoryNominees = nominees.filter(nominee => (
-      nominee.nominations.includes(category.name)
-    ));
+    const categoryNominees = nominees
+      .filter(nominee => (nominee.nominations.includes(category.name)));
     if (!categoryNominees) return null;
 
     return (
@@ -129,9 +128,9 @@ const Admin = ({
 
   const renderCategories = () => (
     categories.map(category => (
-      <li key={category.id}>
+      <li key={category.name}>
 
-        <div>{category.name}</div>
+        <h3>{category.name}</h3>
         { nomineesForCategory(category) }
 
         <div>
@@ -165,9 +164,9 @@ const Admin = ({
   return (
     <div className="admin">
       <h2>Admin</h2>
-      <div className="categories">
+      <ul className="categories">
         { renderCategories() }
-      </div>
+      </ul>
     </div>
   );
 };
