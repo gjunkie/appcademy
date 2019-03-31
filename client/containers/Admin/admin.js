@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
 import { array, bool, func } from 'prop-types';
+
+import SearchResult from '../../components/SearchResult';
 
 import categories from '../helpers/categories2019';
 
@@ -9,98 +10,121 @@ const Admin = ({
   getNominees,
   isAuthenticated,
   nominees,
+  onAddArtist,
   onAddFilm,
+  onUpdateArtist,
   onUpdateFilm,
+  search,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [titles, setTitle] = useState({});
+  const [searchTerms, setSearchTerm] = useState({});
   const [searchResults, setSearchResults] = useState({});
 
   useEffect(() => {
     getNominees();
   }, []);
 
-  const onSearch = (categoryName) => {
-    const apiKey = 'fc177c93d4721138d6300feac0052bb1';
-    const baseUrl = 'https://api.themoviedb.org/3/search/movie';
-    const lang = 'en-US';
-    const page = '1';
-    const urlSafeTitle = encodeURIComponent(titles[categoryName]);
+  const onSearch = (category) => {
+    const urlSafeQuery = encodeURIComponent(searchTerms[category.name]);
 
     setIsSubmitting(true);
-
-    axios.get(`${baseUrl}?api_key=${apiKey}&${lang}&query=${urlSafeTitle}&${page}`)
+    search({
+      type: category.type,
+      query: urlSafeQuery,
+    })
       .then((res) => {
-        setSearchResults({ [categoryName]: res.data.results });
+        setSearchResults({ [category.name]: res.data.results });
         setIsSubmitting(false);
       })
       .catch(err => err);
   };
 
-  const onKeyUp = (e, categoryName) => {
+  const onKeyUp = (e, category) => {
+    e.preventDefault();
     if (e.keyCode === 13) {
-      onSearch(categoryName);
+      onSearch(category);
     }
   };
 
-  const renderNominee = nominee => (
-    <li key={nominee.id}>
-      <div>{nominee.title}</div>
-    </li>
-  );
+  const renderNominee = (category, nominee) => {
+    if (category.type === 'movie') {
+      return (
+        <li key={nominee.id}>
+          <div>{nominee.title}</div>
+        </li>
+      );
+    }
+    return (
+      <li key={nominee.id}>
+        <div>{nominee.name}</div>
+      </li>
+    );
+  };
 
-  const renderNominees = categoryNominees => (
+  const renderNominees = (category, categoryNominees) => (
     categoryNominees.map(nominee => (
-      renderNominee(nominee)
+      renderNominee(category, nominee)
     ))
   );
 
-  const nomineesForCategory = (categoryName) => {
-    const categoryNominees = nominees.filter(nominee => nominee.nominations.includes(categoryName));
+  const nomineesForCategory = (category) => {
+    const categoryNominees = nominees.filter(nominee => (
+      nominee.nominations.includes(category.name)
+    ));
     if (!categoryNominees) return null;
 
     return (
       <ul>
-        { renderNominees(categoryNominees) }
+        { renderNominees(category, categoryNominees) }
       </ul>
     );
   };
 
-  const renderAddButton = (film, category) => {
-    const nomineeIds = nominees.map(nominee => nominee.filmId);
+  const renderButton = (callback, params) => (
+    <button
+      type="button"
+      onClick={() => {
+        callback(params).then(() => setSearchResults({}));
+      }}
+    >
+      Add
+    </button>
+  );
 
-    if (nomineeIds.includes(film.id.toString())) {
-      return (
-        <button type="button" onClick={() => onUpdateFilm({ film, category })}>Add Film</button>
-      );
+  const renderAddButton = (result, category) => {
+    const nomineeIds = nominees.map(nominee => nominee.entityId);
+
+    if (category.type === 'movie') {
+      const callback = nomineeIds.includes(result.id.toString()) ? onUpdateFilm : onAddFilm;
+      return renderButton(callback, { film: result, category });
     }
-    return (
-      <button type="button" onClick={() => onAddFilm({ film, category })}>Add Film</button>
-    );
+
+    const callback = nomineeIds.includes(result.id.toString()) ? onUpdateArtist : onAddArtist;
+    return renderButton(callback, { artist: result, category });
   };
 
   const renderSearchResults = (category) => {
     if (!searchResults[category.name]) return null;
-    return searchResults[category.name].map((film) => {
-      const imageUrl = `http://image.tmdb.org/t/p/w92//${film.poster_path}`;
-      return (
-        <li key={film.id}>
-          <img alt={film.title} src={imageUrl} />
-          <h4>
-            {film.title}
-            (
-            {film.release_date}
-            )
-          </h4>
-          <p>{film.overview}</p>
-          { renderAddButton(film, category) }
-        </li>
-      );
-    });
+    return searchResults[category.name].map(result => (
+      <li key={result.id}>
+        <SearchResult result={result} />
+        { renderAddButton(result, category) }
+      </li>
+    ));
   };
 
   const hasValidTitle = categoryName => (
-    titles[categoryName] && titles[categoryName].length
+    searchTerms[categoryName] && searchTerms[categoryName].length
+  );
+
+  const renderSearchButton = category => (
+    <button
+      type="button"
+      disabled={isSubmitting || hasValidTitle(searchTerms[category.name])}
+      onClick={() => onSearch(category)}
+    >
+      Search
+    </button>
   );
 
   const renderCategories = () => (
@@ -108,21 +132,21 @@ const Admin = ({
       <li key={category.id}>
 
         <div>{category.name}</div>
-        { nomineesForCategory(category.name) }
+        { nomineesForCategory(category) }
 
         <div>
           <label htmlFor="identifier">
-            Add Film
             <input
               id="title"
               name="title"
-              onChange={event => setTitle({ ...titles, [category.name]: event.target.value })}
-              onKeyUp={event => onKeyUp(event, category.name)}
+              onChange={e => setSearchTerm({ ...searchTerms, [category.name]: e.target.value })}
+              onKeyUp={e => onKeyUp(e, category)}
+              placeholder="Search..."
               type="text"
-              value={titles[category.name]}
+              value={searchTerms[category.name]}
             />
           </label>
-          <button type="button" disabled={isSubmitting || hasValidTitle(titles[category.name])} onClick={() => onSearch(category.name)}>Search</button>
+          { renderSearchButton(category) }
 
           <ul>
             { renderSearchResults(category) }
@@ -157,8 +181,11 @@ Admin.propTypes = {
   getNominees: func.isRequired,
   isAuthenticated: bool.isRequired,
   nominees: array,
+  onAddArtist: func.isRequired,
   onAddFilm: func.isRequired,
+  onUpdateArtist: func.isRequired,
   onUpdateFilm: func.isRequired,
+  search: func.isRequired,
 };
 
 export default Admin;

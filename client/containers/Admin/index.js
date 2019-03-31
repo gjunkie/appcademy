@@ -14,6 +14,9 @@ const mapDispatchToProps = dispatch => ({
   onAddFilm: data => (
     dispatch(actions.addFilm(data))
   ),
+  search: options => (
+    dispatch(actions.search(options))
+  ),
   onUpdateFilm: data => (
     dispatch(actions.updateFilm(data))
   ),

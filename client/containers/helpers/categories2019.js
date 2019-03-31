@@ -1,99 +1,99 @@
 
 export default [
   {
-    type: 'film',
+    type: 'movie',
     name: 'Best Picture',
   },
   {
-    type: 'artist',
+    type: 'person',
     name: 'Lead Actor',
   },
   {
-    type: 'artist',
+    type: 'person',
     name: 'Lead Actress',
   },
   {
-    type: 'artist',
+    type: 'person',
     name: 'Supporting Actor',
   },
   {
-    type: 'artist',
+    type: 'person',
     name: 'Supporting Actress',
   },
   {
-    type: 'artist',
+    type: 'person',
     name: 'Director',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Animated Feature',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Animated Short',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Adapted Screenplay',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Original Screenplay',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Cinematography',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Best Documentary Feature',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Best Documentary Short Subject',
   },
   {
-    type: 'film',
-    name: 'Best Live Action Short Film',
+    type: 'movie',
+    name: 'Best Live Action Short movie',
   },
   {
-    type: 'film',
-    name: 'Best Foreign Language Film',
+    type: 'movie',
+    name: 'Best Foreign Language movie',
   },
   {
-    type: 'film',
-    name: 'Film Editing',
+    type: 'movie',
+    name: 'movie Editing',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Sound Editing',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Sound Mixing',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Production Design',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Original Score',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Original Song',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Makeup and Hair',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Costume Design',
   },
   {
-    type: 'film',
+    type: 'movie',
     name: 'Visual Effects',
   },
 ];
