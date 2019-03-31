@@ -54,6 +54,14 @@ const plugin = {
       },
       {
         method: 'POST',
+        path: '/api/artist',
+        config: {
+          auth: 'token',
+          handler: handlers.post.artist,
+        },
+      },
+      {
+        method: 'POST',
         path: '/api/auth',
         config: {
           auth: false,

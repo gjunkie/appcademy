@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 
-// const { ObjectId } = mongoose.Schema.Types;
-
 const filmSchema = mongoose.Schema({
   entityId: String,
   creationDate: { type: Date, required: true, default: Date.now },

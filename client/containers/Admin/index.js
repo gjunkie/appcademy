@@ -11,11 +11,17 @@ const mapDispatchToProps = dispatch => ({
   getNominees: () => (
     dispatch(actions.getNominees())
   ),
+  onAddArtist: data => (
+    dispatch(actions.addArtist(data))
+  ),
   onAddFilm: data => (
     dispatch(actions.addFilm(data))
   ),
   search: options => (
     dispatch(actions.search(options))
+  ),
+  onUpdateArist: data => (
+    dispatch(actions.updateArtist(data))
   ),
   onUpdateFilm: data => (
     dispatch(actions.updateFilm(data))

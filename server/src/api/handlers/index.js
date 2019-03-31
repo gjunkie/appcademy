@@ -15,6 +15,7 @@ module.exports = {
     user: PATCH.user,
   },
   post: {
+    artist: POST.artist,
     auth: POST.auth,
     game: POST.game,
     film: POST.film,

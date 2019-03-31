@@ -1,3 +1,4 @@
+import addArtist from './addArtist';
 import addFilm from './addFilm';
 import createUser from './createUser';
 import createGame from './createGame';
@@ -22,6 +23,7 @@ import updateFilm from './updateFilm';
 import updateUser from './updateUser';
 
 const actions = {
+  addArtist,
   addFilm,
   createUser,
   createGame,

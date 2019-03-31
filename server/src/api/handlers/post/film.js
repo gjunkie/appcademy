@@ -11,7 +11,7 @@ const createFilm = request => (
       nominations: [
         category.name,
       ],
-      poster: film.poster_path,
+      posterPath: film.poster_path,
     };
 
     FilmModel.create(filmData, (err, newFilm) => {
@@ -28,9 +28,6 @@ const createFilm = request => (
   })
 );
 
-/*
- * Creates a user with the payload sent in the request.
- */
 const addFilm = request => (
   new Promise((resolve) => {
     const FilmModel = request.server.plugins.db.Film;
