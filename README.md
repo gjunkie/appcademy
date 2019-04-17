@@ -10,9 +10,9 @@ While the server and client-side of `appcademy` can run independently while in d
 ## Installation
 
 - `git clone git@github.com:gjunkie/appcademy.git`
-- `cd hapi-react-kit/client`
+- `cd appcademy/client`
 - `npm install`
-- `cd ../hapi-react-kit/server`
+- `cd appcademy/server`
 - `npm install`
 
 ## Running the App
